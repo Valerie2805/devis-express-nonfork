@@ -1,0 +1,162 @@
+version: 1
+locale: fr-FR
+goal: "Dashboard ultra simple orienté demandes (pas des métriques vanity)."
+time_ranges:
+  - last_7_days
+  - last_30_days
+  - month_to_date
+dimensions:
+  - name: source
+    values: ["Google","Facebook","Instagram","Direct","Autre"]
+    from: "event_tracking_spec.yml -> attribution.primary_source_rules"
+  - name: trade_id
+  - name: request_type
+  - name: urgency
+metrics:
+  - id: leads_total
+    label: "Demandes"
+    type: count
+    from:
+      event: submit_quote_form
+  - id: leads_qualified
+    label: "Demandes qualifiées"
+    type: count
+    from:
+      lead_field: decision
+      equals: qualified
+  - id: leads_needs_followup
+    label: "À relancer"
+    type: count
+    from:
+      lead_field: decision
+      equals: needs_followup
+  - id: calls_clicks
+    label: "Clics appel"
+    type: count
+    from:
+      event: click_call
+  - id: whatsapp_clicks
+    label: "Clics WhatsApp"
+    type: count
+    from:
+      event: click_whatsapp
+  - id: form_opens
+    label: "Ouvertures formulaire"
+    type: count
+    from:
+      event: open_quote_form
+  - id: response_time_avg_minutes
+    label: "Délai moyen de réponse (min)"
+    type: duration_avg_minutes
+    from:
+      start: lead_created_at
+      end: first_human_response_at
+    notes:
+      - "first_human_response_at = premier event lead_response_sent ou premier lead_status_changed vers contacted/appointment/quote_sent"
+  - id: response_under_10min_rate
+    label: "% réponses < 10 min"
+    type: ratio
+    numerator:
+      metric: leads_responded_under_10min
+    denominator:
+      metric: leads_total
+  - id: leads_responded_under_10min
+    label: "Demandes répondues < 10 min"
+    type: count
+    from:
+      lead_field: response_time_minutes
+      lt: 10
+  - id: appointments
+    label: "RDV fixés"
+    type: count
+    from:
+      lead_field: status
+      equals_any:
+        - appointment
+        - quote_sent
+        - won
+        - lost
+  - id: quotes_sent
+    label: "Devis envoyés"
+    type: count
+    from:
+      lead_field: status
+      equals_any:
+        - quote_sent
+        - won
+        - lost
+  - id: won
+    label: "Gagnés"
+    type: count
+    from:
+      lead_field: status
+      equals: won
+  - id: lost
+    label: "Perdus"
+    type: count
+    from:
+      lead_field: status
+      equals: lost
+  - id: win_rate
+    label: "Taux de gain"
+    type: ratio
+    numerator:
+      metric: won
+    denominator:
+      metric: quotes_sent
+views:
+  overview:
+    title: "Vue d’ensemble"
+    cards:
+      - leads_total
+      - leads_qualified
+      - response_time_avg_minutes
+      - win_rate
+    charts:
+      - type: line
+        title: "Demandes par jour"
+        metric: leads_total
+        group_by: day
+      - type: bar
+        title: "Sources"
+        metric: leads_total
+        group_by: source
+  acquisition:
+    title: "Acquisition"
+    charts:
+      - type: bar
+        title: "Clics appel / WhatsApp"
+        metrics: [calls_clicks, whatsapp_clicks]
+        group_by: source
+      - type: funnel
+        title: "Entonnoir"
+        steps:
+          - form_opens
+          - leads_total
+          - leads_qualified
+  operations:
+    title: "Opérations"
+    cards:
+      - response_time_avg_minutes
+      - response_under_10min_rate
+      - leads_needs_followup
+    charts:
+      - type: bar
+        title: "Urgence"
+        metric: leads_total
+        group_by: urgency
+  sales:
+    title: "Conversion"
+    cards:
+      - appointments
+      - quotes_sent
+      - won
+      - win_rate
+    charts:
+      - type: bar
+        title: "Gagné / perdu"
+        metrics: [won, lost]
+        group_by: week
+minimum_dashboard:
+  rule: "Si vous ne suivez pas won/lost, masquer la vue Conversion et n’afficher que Vue d’ensemble + Acquisition + Opérations."
+

@@ -1,0 +1,274 @@
+version: 1
+locale: fr-FR
+goal: "Backoffice minimaliste pour convertir : inbox + détail + stats + réglages."
+roles:
+  - id: owner
+    label: "Dirigeant"
+  - id: staff
+    label: "Secrétariat / équipe"
+navigation:
+  items:
+    - id: inbox
+      label: "Demandes"
+    - id: stats
+      label: "Stats"
+    - id: availability
+      label: "Disponibilités"
+    - id: settings
+      label: "Réglages"
+statuses:
+  lead_status:
+    - id: new
+      label: "Nouveau"
+      color: "blue"
+    - id: qualified
+      label: "Qualifié"
+      color: "green"
+    - id: needs_followup
+      label: "À relancer"
+      color: "orange"
+    - id: contacted
+      label: "Contacté"
+      color: "gray"
+    - id: appointment
+      label: "RDV fixé"
+      color: "purple"
+    - id: quote_sent
+      label: "Devis envoyé"
+      color: "teal"
+    - id: won
+      label: "Gagné"
+      color: "green_dark"
+    - id: lost
+      label: "Perdu"
+      color: "red"
+tags:
+  priority_tags:
+    - id: urgent
+      label: "Urgent"
+    - id: out_of_zone
+      label: "Hors zone"
+    - id: missing_photos
+      label: "Photos manquantes"
+    - id: danger
+      label: "Danger"
+    - id: security
+      label: "Sécurisation"
+inbox:
+  default_filters:
+    - id: today
+      label: "Aujourd’hui"
+      query: "created_at >= start_of_day"
+    - id: urgent
+      label: "Urgent"
+      query: "tags contains urgent"
+    - id: to_follow_up
+      label: "À relancer"
+      query: "status in [new,needs_followup]"
+  columns:
+    - id: status
+      label: "Statut"
+      type: "badge"
+    - id: priority
+      label: "Priorité"
+      type: "icons"
+      from: "tags"
+    - id: request_type
+      label: "Demande"
+      type: "text"
+    - id: city
+      label: "Ville"
+      type: "text"
+    - id: channel_preference
+      label: "Canal"
+      type: "text"
+    - id: age
+      label: "Reçu"
+      type: "relative_time"
+      from: "created_at"
+    - id: actions
+      label: "Actions"
+      type: "buttons"
+  row_actions:
+    - id: call_now
+      label: "Appeler"
+      type: "primary"
+      enabled_when: "phone_valid == true"
+      emits_event: "click_call"
+    - id: send_whatsapp
+      label: "WhatsApp"
+      type: "secondary"
+      enabled_when: "channel_available.whatsapp == true"
+      opens: "message_modal"
+      default_channel: "whatsapp"
+    - id: send_sms
+      label: "SMS"
+      type: "secondary"
+      enabled_when: "channel_available.sms == true"
+      opens: "message_modal"
+      default_channel: "sms"
+    - id: set_appointment
+      label: "Fixer RDV"
+      type: "secondary"
+      opens: "appointment_modal"
+    - id: mark_won
+      label: "Gagné"
+      type: "success"
+      opens: "outcome_modal"
+    - id: mark_lost
+      label: "Perdu"
+      type: "danger"
+      opens: "outcome_modal"
+lead_detail:
+  sections_order:
+    - summary
+    - photos
+    - timeline
+    - notes
+  summary_fields:
+    - id: first_name
+      label: "Prénom"
+      pii: true
+    - id: phone
+      label: "Téléphone"
+      pii: true
+    - id: city
+      label: "Ville"
+    - id: address
+      label: "Adresse"
+      pii: true
+    - id: request_type
+      label: "Type"
+    - id: urgency
+      label: "Urgence"
+    - id: in_zone
+      label: "Dans zone"
+    - id: score
+      label: "Score"
+    - id: decision
+      label: "Décision"
+  quick_actions:
+    - call_now
+    - send_whatsapp
+    - send_sms
+    - set_appointment
+    - change_status
+  timeline:
+    events:
+      - lead_created
+      - lead_response_sent
+      - lead_status_changed
+      - appointment_set
+      - quote_sent
+      - won
+      - lost
+message_modal:
+  channels:
+    - sms
+    - whatsapp
+  templates:
+    common:
+      - id: ack
+        label: "Accusé réception"
+        source: "messages.yml -> common.ack"
+      - id: propose_slot
+        label: "Proposer créneaux"
+        source: "messages.yml -> common.propose_slot"
+      - id: confirm_slot
+        label: "Confirmer RDV"
+        source: "messages.yml -> common.confirm_slot"
+      - id: need_photo
+        label: "Demander photo"
+        source: "messages.yml -> common.need_photo_generic"
+      - id: out_of_zone
+        label: "Hors zone"
+        source: "messages.yml -> common.out_of_zone"
+      - id: missed_call_followup
+        label: "Appel manqué"
+        source: "messages.yml -> common.missed_call_followup"
+    trade_specific:
+      source: "messages.yml -> trades.{trade_id}"
+appointment_modal:
+  fields:
+    - id: date
+      label: "Date"
+      required: true
+    - id: time
+      label: "Heure"
+      required: true
+    - id: address
+      label: "Adresse"
+      required: true
+  on_save:
+    - action: "set_status"
+      to: appointment
+    - action: "send_message"
+      template_id: confirm_slot
+outcome_modal:
+  won_fields:
+    - id: estimated_value
+      label: "Montant (optionnel)"
+      required: false
+  lost_fields:
+    - id: lost_reason
+      label: "Raison (optionnel)"
+      required: false
+      options:
+        - "Prix"
+        - "Délai"
+        - "Hors zone"
+        - "Pas de réponse"
+        - "Autre"
+stats:
+  sources:
+    - "kpis_dashboard.yml"
+availability:
+  modes:
+    - id: manual
+      label: "Manuel"
+      fields:
+        - id: next_slot_text
+          label: "Prochain créneau"
+          placeholder: "ex : demain 14h"
+    - id: google_calendar
+      label: "Google Calendar"
+      fields:
+        - id: calendar_id
+          label: "Calendar ID"
+        - id: working_hours
+          label: "Plages horaires"
+settings:
+  sections:
+    - id: business
+      label: "Entreprise"
+      fields:
+        - company
+        - phone
+        - city
+        - zone
+    - id: zones
+      label: "Zones"
+      fields:
+        - zone_list
+        - radius_km
+        - excluded_zones
+    - id: services
+      label: "Services"
+      fields:
+        - top_services
+        - all_services
+    - id: messaging
+      label: "Messages"
+      fields:
+        - response_sla_minutes
+        - templates_enabled
+security:
+  access:
+    - "Auth obligatoire"
+    - "Logs d’accès"
+    - "Droits simples : owner/staff"
+privacy:
+  notes:
+    - "Les events analytics ne contiennent aucune PII."
+    - "La PII reste dans la base leads/backoffice."
+

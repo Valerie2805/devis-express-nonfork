@@ -1,0 +1,271 @@
+version: 1
+locale: fr-FR
+scoring_model: "points"
+lead_fields_expected:
+  - trade_id
+  - request_type
+  - in_zone
+  - phone_valid
+  - urgency
+  - channel_preference
+  - description
+  - address
+  - photos_count
+  - slot_preference
+  - answers
+thresholds:
+  qualified_min: 70
+  followup_min: 40
+  reject_below: 40
+common:
+  points:
+    in_zone:
+      true: 35
+      false: -999
+    phone_valid:
+      true: 15
+      false: -999
+    urgency:
+      now: 20
+      today: 10
+      week: 0
+    channel_preference:
+      whatsapp: 2
+      sms: 1
+      call: 0
+    has_description:
+      true: 5
+      false: 0
+    has_address:
+      true: 5
+      false: 0
+    has_slot_preference:
+      true: 3
+      false: 0
+    has_photos:
+      true: 10
+      false: 0
+    missing_required_photos: -25
+    missing_required_answer: -15
+  tags:
+    out_of_zone:
+      when: "in_zone == false"
+    urgent:
+      when: "urgency == now"
+    missing_photos:
+      when: "required_photos == true && photos_count == 0"
+    missing_address:
+      when: "address == null || address == ''"
+    missing_description:
+      when: "description == null || description == ''"
+  decisions:
+    reject:
+      when: "score < 0"
+    needs_followup:
+      when: "score >= 0 && score < 70"
+    qualified:
+      when: "score >= 70"
+trades:
+  plombier_chauffagiste:
+    request_types:
+      - fuite_eau
+      - debouchage
+      - chauffe_eau_panne
+      - chaudiere_panne
+      - remplacement_installation
+      - recherche_fuite
+    required_photos_for:
+      - fuite_eau
+      - chauffe_eau_panne
+      - chaudiere_panne
+      - recherche_fuite
+    required_answers_for:
+      fuite_active: true
+      eau_coupee_possible: true
+    extra_points:
+      fuite_active_true: 10
+      fuite_active_false: 0
+      urgency_now_extra: 5
+    tags:
+      safety_water:
+        when: "request_type in ['fuite_eau','recherche_fuite'] && answers.fuite_active == true"
+
+  serrurier:
+    request_types:
+      - porte_claquee
+      - porte_fermee_a_cle
+      - cle_cassee_ou_perdue
+      - effraction_securisation
+      - changement_serrure
+    required_photos_for:
+      - porte_claquee
+      - porte_fermee_a_cle
+      - effraction_securisation
+      - changement_serrure
+    required_answers_for:
+      mode_porte: true
+      effraction: false
+    extra_points:
+      effraction_true: 15
+      urgency_now_extra: 10
+    tags:
+      security:
+        when: "request_type == 'effraction_securisation' || answers.effraction == true"
+
+  electricien:
+    request_types:
+      - panne_totale
+      - panne_partielle
+      - disjoncteur_saute
+      - tableau_electrique
+      - mise_en_securite
+      - prises_eclairage
+    required_photos_for:
+      - disjoncteur_saute
+      - tableau_electrique
+    required_answers_for:
+      danger_brule_etincelle: true
+    extra_points:
+      danger_true: 20
+      urgency_now_extra: 5
+      photo_tableau_bonus: 5
+    tags:
+      danger:
+        when: "answers.danger_brule_etincelle == true"
+
+  couvreur_zingueur:
+    request_types:
+      - fuite_infiltration
+      - reparation_tuiles
+      - renovation_toiture
+      - gouttieres_zinc
+      - demoussage
+    required_photos_for:
+      - fuite_infiltration
+      - reparation_tuiles
+    required_answers_for:
+      infiltration_active: true
+    extra_points:
+      infiltration_active_true: 10
+      urgency_now_extra: 5
+    tags:
+      weather_risk:
+        when: "request_type == 'fuite_infiltration' && answers.infiltration_active == true"
+
+  pac_clim_chauffage:
+    request_types:
+      - installation
+      - entretien
+      - panne
+      - remplacement
+    required_answers_for:
+      surface_m2: true
+      type_logement: true
+      objectif: true
+    required_photos_for:
+      - panne
+    extra_points:
+      installation_bonus: 10
+      surface_provided_bonus: 5
+      urgency_now_extra: 0
+    tags:
+      prequal_needed:
+        when: "request_type == 'installation' && (answers.surface_m2 == null || answers.type_logement == null)"
+
+  vitrier:
+    request_types:
+      - vitre_cassee
+      - mise_en_securite
+      - remplacement_double_vitrage
+      - vitrine_commerce
+    required_photos_for:
+      - vitre_cassee
+      - vitrine_commerce
+    required_answers_for:
+      besoin_securisation_immediate: true
+    extra_points:
+      securisation_true: 15
+      urgency_now_extra: 10
+    tags:
+      glass_hazard:
+        when: "request_type == 'vitre_cassee' || answers.besoin_securisation_immediate == true"
+
+  debouchage_assainissement:
+    request_types:
+      - wc
+      - evier_douche
+      - colonne
+      - refoulement
+      - inspection_camera
+    required_answers_for:
+      maison_ou_appartement: true
+      refoulement_oui_non: true
+    required_photos_for:
+      - refoulement
+    extra_points:
+      refoulement_true: 20
+      urgency_now_extra: 5
+    tags:
+      sanitary_urgent:
+        when: "answers.refoulement_oui_non == true"
+
+  volets_portes_garage:
+    request_types:
+      - volet_bloque_ouvert
+      - volet_bloque_ferme
+      - moteur_panne
+      - porte_garage_bloquee
+      - remplacement
+    required_answers_for:
+      bloque_ouvert_ou_ferme: true
+      manuel_ou_electrique: true
+    required_photos_for:
+      - volet_bloque_ouvert
+      - moteur_panne
+      - porte_garage_bloquee
+    extra_points:
+      bloque_ouvert_true: 10
+      urgency_now_extra: 5
+    tags:
+      security_open:
+        when: "request_type == 'volet_bloque_ouvert' || answers.bloque_ouvert_ou_ferme == 'ouvert'"
+
+  anti_nuisibles:
+    request_types:
+      - guepes_frelons
+      - punaises
+      - rats_souris
+      - cafards
+      - autre
+    required_answers_for:
+      type_nuisible: true
+      piece: true
+    conditional_required_answers:
+      punaises:
+        pieces_concernees: true
+    required_photos_for:
+      - guepes_frelons
+    extra_points:
+      guepes_frelons_bonus: 10
+      punaises_bonus: 10
+      urgency_now_extra: 5
+    tags:
+      stinging_risk:
+        when: "request_type == 'guepes_frelons'"
+
+  ramonage_poeles_cheminees:
+    request_types:
+      - ramonage
+      - diagnostic_tirage
+      - entretien
+    required_answers_for:
+      type_appareil: true
+      attestation_necessaire: true
+    required_photos_for: []
+    extra_points:
+      urgency_now_extra: 0
+      attestation_true_bonus: 5
+    tags:
+      seasonal:
+        when: "request_type == 'ramonage'"
+

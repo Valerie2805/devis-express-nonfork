@@ -1,0 +1,179 @@
+version: 1
+locale: fr-FR
+goal: "Contrat API minimal pour V1 (générateur, leads, messages, analytics, dashboard)."
+auth:
+  site_public:
+    description: "Accès public aux pages + formulaire."
+    method: "aucune"
+  backoffice:
+    description: "Accès authentifié."
+    method: "session cookie ou bearer token"
+    roles: [owner, staff]
+api:
+  base_path: "/api/v1"
+  conventions:
+    - "Toutes les dates en ISO-8601."
+    - "Les IDs sont des UUID."
+    - "Les endpoints analytics ne doivent jamais accepter de PII."
+endpoints:
+  - id: get_site_config
+    method: GET
+    path: "/site/{business_id}/config"
+    auth: site_public
+    returns:
+      200:
+        body:
+          business_id: uuid
+          trade_id: string
+          pages: object
+          branding: object
+          pricing: object?
+          availability: object?
+  - id: submit_lead
+    method: POST
+    path: "/site/{business_id}/leads"
+    auth: site_public
+    body:
+      trade_id: string
+      request_type: string
+      urgency: enum(now,today,week)
+      channel_preference: enum(call,whatsapp,sms)
+      first_name: string
+      phone: string
+      email: string?
+      city: string
+      postal_code: string
+      address: string?
+      description: string?
+      slot_preference: string?
+      answers: object?
+      photos:
+        description: "En V1, préférer upload séparé + references asset_id."
+        type: array[object]?
+    returns:
+      201:
+        body:
+          lead_id: uuid
+          status: string
+          decision: string
+          tags: array[string]
+  - id: upload_asset
+    method: POST
+    path: "/site/{business_id}/assets"
+    auth: site_public
+    body:
+      kind: enum(lead_photo,logo,gallery_photo)
+      content_type: string
+      data: "multipart/form-data"
+    returns:
+      201:
+        body:
+          asset_id: uuid
+          url: string
+  - id: list_leads
+    method: GET
+    path: "/backoffice/{business_id}/leads"
+    auth: backoffice
+    query:
+      status: string?
+      from: datetime?
+      to: datetime?
+      tag: string?
+      q: string?
+      limit: number?
+      offset: number?
+    returns:
+      200:
+        body:
+          items: array[object]
+          total: number
+  - id: get_lead
+    method: GET
+    path: "/backoffice/{business_id}/leads/{lead_id}"
+    auth: backoffice
+    returns:
+      200:
+        body:
+          lead: object
+          timeline: array[object]
+          messages: array[object]
+  - id: update_lead_status
+    method: PATCH
+    path: "/backoffice/{business_id}/leads/{lead_id}"
+    auth: backoffice
+    body:
+      status: enum(new,qualified,needs_followup,contacted,appointment,quote_sent,won,lost)?
+      notes: string?
+      outcome:
+        estimated_value: number?
+        lost_reason: string?
+      appointment:
+        date: date?
+        time: time?
+        address: string?
+    returns:
+      200:
+        body:
+          lead_id: uuid
+          status: string
+          updated_at: datetime
+  - id: send_message
+    method: POST
+    path: "/backoffice/{business_id}/leads/{lead_id}/messages"
+    auth: backoffice
+    body:
+      channel: enum(sms,whatsapp)
+      template_id: string
+      variables:
+        description: "Valeurs de placeholders (sans stocker PII dans analytics)."
+        type: object
+    returns:
+      202:
+        body:
+          message_id: uuid
+          status: enum(queued,sent,failed)
+  - id: track_event
+    method: POST
+    path: "/analytics/{business_id}/events"
+    auth: site_public
+    body:
+      session_id: string
+      trade_id: string
+      name: string
+      page_type: string
+      page_path: string
+      properties: object?
+      utm: object?
+      referrer: string?
+    returns:
+      204: {}
+    validation:
+      - "Refuser toute clé PII (phone, email, address, first_name) dans properties."
+  - id: get_dashboard
+    method: GET
+    path: "/backoffice/{business_id}/dashboard"
+    auth: backoffice
+    query:
+      range: enum(last_7_days,last_30_days,month_to_date)
+    returns:
+      200:
+        body:
+          cards: object
+          charts: object
+settings_endpoints:
+  - id: get_settings
+    method: GET
+    path: "/backoffice/{business_id}/settings"
+    auth: backoffice
+  - id: update_settings
+    method: PATCH
+    path: "/backoffice/{business_id}/settings"
+    auth: backoffice
+    body:
+      zones: object?
+      services: object?
+      pricing: object?
+      availability: object?
+      branding: object?
+      settings: object?
+

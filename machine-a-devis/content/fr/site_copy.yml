@@ -1,0 +1,605 @@
+version: 1
+locale: fr-FR
+placeholders:
+  company: "[Entreprise]"
+  city: "[Ville]"
+  zone: "[Zone]"
+  phone: "[Téléphone]"
+trades:
+  generic:
+    label: "[Métier]"
+    hero:
+      h1: "[Métier] à [Ville] — devis clair & réponse rapide"
+      subtitle: "Demande simple en 30 secondes. Intervention sur [Zone]. Réponse rapide par téléphone ou WhatsApp."
+      ctas:
+        - "Appeler"
+        - "WhatsApp"
+        - "Demande"
+    services:
+      - "Prestation sur mesure"
+      - "Conseil & estimation"
+      - "Intervention sur [Zone]"
+    faq:
+      - q: "Quels sont vos délais ?"
+        a: "Selon l’urgence et la zone. On vous confirme un créneau dès réception."
+      - q: "Donnez-vous un devis avant ?"
+        a: "Oui, on vous annonce le tarif avant de démarrer, selon la demande."
+      - q: "Vous intervenez où ?"
+        a: "[Zone]."
+      - q: "Peut-on envoyer des photos ?"
+        a: "Oui, ça permet d’aller plus vite (WhatsApp ou formulaire)."
+
+  plombier_chauffagiste:
+    label: "Plombier / Chauffagiste"
+    hero:
+      variants:
+        A:
+          h1: "Plombier chauffagiste à [Ville] — dépannage rapide & devis clair"
+          subtitle: "Fuite, débouchage, chauffe‑eau, chaudière. Intervention sur [Zone]. Réponse rapide par téléphone ou WhatsApp."
+        B:
+          h1: "Dépannage plomberie à [Ville] — prix annoncé, intervention rapide"
+          subtitle: "Urgence ou RDV : on vous rappelle vite. Zone : [Zone]. Envoyez une photo sur WhatsApp pour aller plus vite."
+          ctas:
+            - "Appeler maintenant"
+            - "WhatsApp (photo)"
+            - "Devis express"
+      h1: "Plombier chauffagiste à [Ville] — dépannage rapide & devis clair"
+      subtitle: "Fuite, débouchage, chauffe‑eau, chaudière. Intervention sur [Zone]. Réponse rapide par téléphone ou WhatsApp."
+      ctas:
+        - "Appeler"
+        - "Être rappelé"
+        - "Devis en 30 secondes"
+    services:
+      - "Recherche de fuite & réparation"
+      - "Débouchage WC / évier / douche"
+      - "Dépannage chauffe‑eau"
+      - "Dépannage chaudière"
+      - "Remplacement chauffe‑eau / chaudière"
+      - "Entretien & désembouage (option)"
+
+  fleuriste:
+    label: "Fleuriste"
+    hero:
+      variants:
+        A:
+          h1: "Fleuriste à [Ville] — bouquets, plantes & livraison"
+          subtitle: "Bouquets du jour, compositions sur mesure, anniversaires, mariage. Livraison possible sur [Zone]."
+        B:
+          h1: "Bouquets & fleurs à [Ville] — commande simple, livraison rapide"
+          subtitle: "Dites-nous l’occasion + le budget. On prépare une composition et on vous confirme avant livraison sur [Zone]."
+          ctas:
+            - "Commander"
+            - "Appeler"
+            - "WhatsApp"
+      h1: "Fleuriste à [Ville] — bouquets, plantes & livraison"
+      subtitle: "Bouquets du jour, compositions sur mesure, anniversaires, mariage. Livraison possible sur [Zone]."
+      ctas:
+        - "Commander"
+        - "Appeler"
+        - "WhatsApp"
+    services:
+      - "Bouquets & compositions"
+      - "Fleurs pour anniversaire"
+      - "Fleurs pour mariage"
+      - "Deuil & cérémonies"
+      - "Plantes & accessoires"
+      - "Livraison sur [Zone]"
+    faq:
+      - q: "Intervenez-vous en urgence ?"
+        a: "Oui. Indiquez “urgence” dans la demande et votre adresse à [Ville] / [Zone]."
+      - q: "Donnez-vous un devis avant intervention ?"
+        a: "Oui, on vous annonce le tarif avant de démarrer, selon la situation."
+      - q: "Quels délais d’intervention ?"
+        a: "Selon l’urgence et la zone. On vous confirme un créneau dès réception."
+      - q: "Vous intervenez où exactement ?"
+        a: "[Zone] (villes/quartiers). Hors zone, on vous le dit immédiatement."
+      - q: "Peut-on vous envoyer des photos ?"
+        a: "Oui, ça permet de diagnostiquer plus vite (WhatsApp ou formulaire)."
+      - q: "Faites-vous chauffe‑eau / chaudière ?"
+        a: "Oui, selon modèle. Envoyez une photo de la plaque si possible."
+      - q: "Acceptez-vous particuliers et pros ?"
+        a: "Oui. Indiquez le type de lieu (maison, appart, commerce)."
+      - q: "Comment éviter les mauvaises surprises ?"
+        a: "Décrivez le problème + photos : on confirme le prix et le créneau clairement."
+    pages:
+      home:
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Demande express"
+              subtitle: "Dites-nous le souci + votre code postal. Réponse rapide."
+      services:
+        page_intro:
+          variants:
+            A:
+              headline: "Services à [Ville]"
+              subtitle: "Intervention sur [Zone]. Décrivez votre besoin et recevez une réponse rapide."
+            B:
+              headline: "Prestations à [Ville] — réponse rapide"
+              subtitle: "Expliquez en 1 phrase, on vous rappelle vite. Zone : [Zone]."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Devis (30 sec)"
+              subtitle: "1 phrase + code postal, et on revient vers vous."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Besoin d’un devis ? Répondez en 30 secondes."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Dites-nous ce qu’il se passe + votre code postal."
+              cta: "Devis express"
+      zones:
+        page_intro:
+          variants:
+            A:
+              headline: "Zones d’intervention"
+              subtitle: "Nous intervenons sur [Zone]. Vérifiez si vous êtes couvert."
+            B:
+              headline: "Intervention autour de [Ville]"
+              subtitle: "Donnez votre code postal : réponse rapide."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "Votre code postal + votre besoin. On vous rappelle."
+            B:
+              title: "Être rappelé"
+              subtitle: "Indiquez votre code postal et le problème en 1 phrase."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Dites-nous votre commune et votre besoin."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Votre code postal + 1 phrase sur le problème."
+              cta: "Demander un devis"
+
+  serrurier:
+    label: "Serrurier"
+    hero:
+      variants:
+        A:
+          h1: "Serrurier à [Ville] — ouverture de porte & sécurisation, tarifs annoncés"
+          subtitle: "Porte claquée, clé cassée, effraction. Intervention sur [Zone]. Devis annoncé avant intervention."
+        B:
+          h1: "Serrurier à [Ville] — urgence porte claquée, intervention rapide"
+          subtitle: "Appelez maintenant. Devis annoncé avant intervention. Intervention sur [Zone]."
+          ctas:
+            - "Appeler (urgent)"
+            - "WhatsApp"
+            - "Devis express"
+      h1: "Serrurier à [Ville] — ouverture de porte & sécurisation, tarifs annoncés"
+      subtitle: "Porte claquée, clé cassée, effraction. Intervention sur [Zone]. Devis annoncé avant intervention."
+      ctas:
+        - "Appeler"
+        - "Rappel immédiat"
+        - "Devis 30 secondes"
+    services:
+      - "Ouverture porte claquée"
+      - "Ouverture porte fermée à clé"
+      - "Remplacement cylindre / serrure"
+      - "Sécurisation après effraction"
+      - "Blindage / renforts (option)"
+    faq:
+      - q: "Porte claquée : vous pouvez ouvrir sans casser ?"
+        a: "Souvent oui, selon serrure. Envoyez une photo si possible."
+      - q: "Donnez-vous le prix avant de venir ?"
+        a: "Oui, on annonce le tarif (déplacement + main d’œuvre) avant intervention."
+      - q: "Intervenez-vous le soir / week-end ?"
+        a: "Selon disponibilité. Indiquez votre urgence, on confirme."
+      - q: "Effraction : que faire ?"
+        a: "Sécurisez la porte si possible et envoyez une photo. On priorise."
+      - q: "Vous intervenez dans ma ville ?"
+        a: "Dites votre code postal : réponse immédiate (dans zone / hors zone)."
+      - q: "Paiement : comment ça se passe ?"
+        a: "Après intervention, selon modalités annoncées."
+      - q: "Remplacez-vous toutes les serrures ?"
+        a: "Oui, selon modèle. Photo recommandée."
+      - q: "Combien de temps ça prend ?"
+        a: "Ouverture simple : souvent rapide. On confirme après qualification."
+    pages:
+      home:
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Urgence serrurerie"
+              subtitle: "Porte claquée ? Dites-nous l’adresse + 1 photo si possible."
+      services:
+        page_intro:
+          variants:
+            A:
+              headline: "Services à [Ville]"
+              subtitle: "Intervention sur [Zone]. Décrivez votre besoin et recevez une réponse rapide."
+            B:
+              headline: "Serrurerie à [Ville] — urgence ou RDV"
+              subtitle: "Porte claquée, serrure, sécurisation. Zone : [Zone]. Réponse rapide."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Devis serrurerie"
+              subtitle: "Type de porte/serrure + code postal. Réponse rapide."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Besoin d’un devis ? Répondez en 30 secondes."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Envoyez une photo de la serrure si possible."
+              cta: "Devis express"
+      zones:
+        page_intro:
+          variants:
+            A:
+              headline: "Zones d’intervention"
+              subtitle: "Nous intervenons sur [Zone]. Vérifiez si vous êtes couvert."
+            B:
+              headline: "Zone d’intervention"
+              subtitle: "Donnez votre code postal : réponse immédiate."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "Votre code postal + votre besoin. On vous rappelle."
+            B:
+              title: "Réponse rapide"
+              subtitle: "Code postal + type d’ouverture (claquée/à clé)."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Dites-nous votre commune et votre besoin."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Code postal + type de porte/serrure."
+              cta: "Demander un devis"
+
+  electricien:
+    label: "Électricien"
+    hero:
+      variants:
+        A:
+          h1: "Électricien à [Ville] — dépannage & mise en sécurité"
+          subtitle: "Panne, disjoncteur, tableau, mise aux normes. Intervention sur [Zone]. Réponse rapide."
+        B:
+          h1: "Panne électrique à [Ville] — intervention rapide, mise en sécurité"
+          subtitle: "Décrivez la panne en 1 phrase, on vous rappelle. Zone : [Zone]."
+          ctas:
+            - "Appeler"
+            - "WhatsApp"
+            - "Devis express"
+      h1: "Électricien à [Ville] — dépannage & mise en sécurité"
+      subtitle: "Panne, disjoncteur, tableau, mise aux normes. Intervention sur [Zone]. Réponse rapide."
+      ctas:
+        - "Appeler"
+        - "Être rappelé"
+        - "Devis 30 secondes"
+    services:
+      - "Dépannage panne électrique"
+      - "Disjoncteur qui saute / court-circuit"
+      - "Remplacement tableau électrique"
+      - "Mise en sécurité / conformité"
+      - "Dépannage prises / éclairage"
+      - "Borne de recharge (IRVE) (option)"
+    faq:
+      - q: "C’est dangereux : que faire ?"
+        a: "Si odeur/brûlé/étincelles, coupez le disjoncteur général et contactez-nous."
+      - q: "Intervenez-vous en urgence ?"
+        a: "Oui selon situation. Indiquez “danger” si c’est le cas."
+      - q: "Faites-vous les tableaux électriques ?"
+        a: "Oui, diagnostic + proposition claire."
+      - q: "Donnez-vous un devis ?"
+        a: "Oui, on annonce avant intervention ou après diagnostic selon cas."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Travaillez-vous pour les pros ?"
+        a: "Oui (boutiques, bureaux, syndics)."
+      - q: "Délais ?"
+        a: "On propose un créneau dès réception de la demande."
+      - q: "Quels infos envoyer ?"
+        a: "Type de panne + photo du tableau si possible."
+    pages:
+      home:
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Dépannage élec"
+              subtitle: "Décrivez la panne + code postal. Photo du tableau si possible."
+      services:
+        page_intro:
+          variants:
+            A:
+              headline: "Services à [Ville]"
+              subtitle: "Intervention sur [Zone]. Décrivez votre besoin et recevez une réponse rapide."
+            B:
+              headline: "Électricité à [Ville] — dépannage & sécurité"
+              subtitle: "Panne, disjoncteur, tableau. Zone : [Zone]. Décrivez en 1 phrase."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+            B:
+              title: "Devis électricité"
+              subtitle: "Type de panne + code postal. Réponse rapide."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Besoin d’un devis ? Répondez en 30 secondes."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Photo du tableau si possible : réponse plus rapide."
+              cta: "Devis express"
+      zones:
+        page_intro:
+          variants:
+            A:
+              headline: "Zones d’intervention"
+              subtitle: "Nous intervenons sur [Zone]. Vérifiez si vous êtes couvert."
+            B:
+              headline: "Zone couverte"
+              subtitle: "Code postal : on confirme rapidement."
+        quote_form:
+          variants:
+            A:
+              title: "Devis express"
+              subtitle: "Votre code postal + votre besoin. On vous rappelle."
+            B:
+              title: "Être rappelé"
+              subtitle: "Code postal + type de panne. Réponse rapide."
+        quote_form_cta:
+          variants:
+            A:
+              text: "Dites-nous votre commune et votre besoin."
+              cta: "Devis en 30 secondes"
+            B:
+              text: "Code postal + type de panne."
+              cta: "Demander un devis"
+
+  couvreur_zingueur:
+    label: "Couvreur / Zingueur"
+    hero:
+      h1: "Couvreur à [Ville] — fuites, réparations & rénovation toiture"
+      subtitle: "Infiltration, tuiles, zinguerie, gouttières. Intervention sur [Zone]. Diagnostic rapide."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Recherche de fuite / infiltration"
+      - "Remplacement tuiles / ardoises"
+      - "Réparation faîtage / solins"
+      - "Gouttières / zinguerie"
+      - "Rénovation toiture"
+      - "Nettoyage / démoussage (option)"
+    faq:
+      - q: "Fuite active : intervenez-vous vite ?"
+        a: "Oui. Indiquez urgence et envoyez des photos si possible."
+      - q: "Peut-on monter sur le toit pour prendre des photos ?"
+        a: "Non si risque. Une photo depuis le sol suffit souvent pour commencer."
+      - q: "Faites-vous un diagnostic avant devis ?"
+        a: "Oui, on confirme la marche à suivre selon votre cas."
+      - q: "Intervenez-vous après tempête ?"
+        a: "Oui selon planning. Priorité aux urgences (infiltrations)."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Proposez-vous des réparations ou uniquement rénovation ?"
+        a: "Les deux."
+      - q: "Garanties ?"
+        a: "Selon travaux réalisés. On détaille sur le devis."
+      - q: "Quels délais ?"
+        a: "On propose un créneau dès la qualification."
+
+  pac_clim_chauffage:
+    label: "PAC / Climatisation / Chauffage"
+    hero:
+      h1: "Installation & dépannage PAC / clim à [Ville]"
+      subtitle: "Installation, entretien, dépannage. Étude rapide sur [Zone]. Devis clair."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Installation PAC air/air"
+      - "Installation PAC air/eau"
+      - "Installation climatisation"
+      - "Entretien / maintenance"
+      - "Dépannage / panne"
+      - "Remplacement système existant"
+    faq:
+      - q: "Quel système choisir ?"
+        a: "On vous recommande selon surface, isolation et usage."
+      - q: "Faites-vous une visite avant devis ?"
+        a: "Souvent oui. On confirme après pré-qualification."
+      - q: "Dépannage : intervenez-vous rapidement ?"
+        a: "Oui selon disponibilité et urgence."
+      - q: "Entretien : prenez-vous des contrats ?"
+        a: "Optionnel, selon votre offre."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Quels éléments fournir ?"
+        a: "Surface (m²), type logement, chauffage actuel."
+      - q: "Est-ce bruyant ?"
+        a: "On conseille des modèles adaptés + bon positionnement."
+      - q: "Délais d’installation ?"
+        a: "On annonce le délai après étude rapide."
+
+  vitrier:
+    label: "Vitrier"
+    hero:
+      h1: "Vitrier à [Ville] — bris de glace, mise en sécurité, remplacement"
+      subtitle: "Intervention sur [Zone]. Sécurisation rapide et devis annoncé."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Vitre cassée / bris de glace"
+      - "Mise en sécurité"
+      - "Double vitrage remplacement"
+      - "Vitrine commerce"
+      - "Fenêtre / baie vitrée (option)"
+    faq:
+      - q: "Vitre cassée : intervenez-vous en urgence ?"
+        a: "Oui, surtout pour sécuriser. Envoyez une photo."
+      - q: "Faites-vous la mise en sécurité immédiate ?"
+        a: "Oui selon disponibilité et zone."
+      - q: "Donnez-vous un devis avant remplacement ?"
+        a: "Oui, après dimensions/diagnostic."
+      - q: "Travaillez-vous avec assurances ?"
+        a: "On fournit les éléments nécessaires, selon votre procédure."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Délais de remplacement ?"
+        a: "Selon type de vitrage. On annonce dès qualification."
+      - q: "Vitrine commerce ?"
+        a: "Oui, indiquez dimensions approximatives + urgence."
+      - q: "Comment obtenir un prix ?"
+        a: "Photo + dimensions approximatives + adresse."
+
+  debouchage_assainissement:
+    label: "Débouchage / Assainissement"
+    hero:
+      h1: "Débouchage à [Ville] — intervention rapide, diagnostic clair"
+      subtitle: "WC, évier, douche, colonnes, refoulement. Intervention sur [Zone]."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Débouchage WC"
+      - "Débouchage évier/douche"
+      - "Refoulement / urgence"
+      - "Inspection caméra (option)"
+      - "Curage / entretien (option)"
+    faq:
+      - q: "Refoulement : c’est urgent ?"
+        a: "Oui. Indiquez urgence et décrivez la situation."
+      - q: "Maison ou appartement : ça change ?"
+        a: "Oui, précisez-le (accès, colonnes, syndic)."
+      - q: "Donnez-vous un tarif avant ?"
+        a: "On annonce selon symptômes et accès."
+      - q: "Faites-vous l’inspection caméra ?"
+        a: "Optionnel, utile si récidive."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Combien de temps dure l’intervention ?"
+        a: "Variable. On confirme après qualification."
+      - q: "Que fournir ?"
+        a: "Photos si possible + étage + type d’évacuation."
+      - q: "Est-ce que ça revient ?"
+        a: "On vous conseille sur la cause probable et la prévention."
+
+  volets_portes_garage:
+    label: "Volets roulants / Portes de garage"
+    hero:
+      h1: "Dépannage volets roulants & porte de garage à [Ville]"
+      subtitle: "Volet bloqué, moteur, manivelle, porte garage. Intervention sur [Zone]."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Volet bloqué ouvert"
+      - "Volet bloqué fermé"
+      - "Remplacement moteur"
+      - "Réparation lames/attaches"
+      - "Porte de garage bloquée"
+      - "Motorisation (option)"
+    faq:
+      - q: "Volet bloqué ouvert : intervenez-vous vite ?"
+        a: "Oui, c’est un sujet de sécurité. Indiquez urgence."
+      - q: "Vous réparez ou vous remplacez ?"
+        a: "On privilégie la réparation si possible."
+      - q: "Pouvez-vous estimer sans voir ?"
+        a: "Avec photo + marque/modèle, on pré-qualifie."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Délais ?"
+        a: "Créneau proposé dès réception."
+      - q: "Quel infos envoyer ?"
+        a: "Photo + type (manuel/électrique) + symptôme."
+      - q: "Porte de garage : toutes marques ?"
+        a: "La plupart. Photo recommandée."
+      - q: "Garantie ?"
+        a: "Selon pièces et intervention, détaillée au devis."
+
+  anti_nuisibles:
+    label: "Anti-nuisibles"
+    hero:
+      h1: "Traitement nuisibles à [Ville] — intervention discrète & efficace"
+      subtitle: "Rats/souris, cafards, punaises, guêpes/frelons. Intervention sur [Zone]."
+      ctas:
+        - "Appeler"
+        - "Rappel"
+        - "Devis 30 secondes"
+    services:
+      - "Dératisation (rats/souris)"
+      - "Cafards / blattes"
+      - "Punaises de lit"
+      - "Guêpes / frelons"
+      - "Prévention / obturations (option)"
+    faq:
+      - q: "Guêpes/frelons : intervention rapide ?"
+        a: "Oui selon disponibilité, précisez le niveau d’urgence."
+      - q: "Punaises : comment qualifier ?"
+        a: "Nombre de pièces, niveau d’infestation, photos si possible."
+      - q: "Est-ce discret ?"
+        a: "Oui, intervention et communication discrètes."
+      - q: "Combien de passages ?"
+        a: "Selon cas. On l’explique au devis."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Est-ce garanti ?"
+        a: "Selon traitement et conditions, précisé au devis."
+      - q: "Que préparer ?"
+        a: "Lieu exact, accès, photos, contraintes (enfants/animaux)."
+      - q: "Peut-on avoir un prix rapide ?"
+        a: "Oui avec infos minimales (type + surface/nb pièces)."
+
+  ramonage_poeles_cheminees:
+    label: "Ramonage / Poêles / Cheminées"
+    hero:
+      h1: "Ramonage à [Ville] — intervention rapide, attestation fournie"
+      subtitle: "Poêle, cheminée, chaudière selon équipement. Intervention sur [Zone]."
+      ctas:
+        - "Réserver"
+        - "Appeler"
+        - "Devis 30 secondes"
+    services:
+      - "Ramonage poêle à bois/granulés"
+      - "Ramonage cheminée"
+      - "Diagnostic tirage / fumées"
+      - "Entretien (option)"
+    faq:
+      - q: "Fournissez-vous une attestation ?"
+        a: "Oui (si applicable à votre prestation)."
+      - q: "Quelle fréquence ?"
+        a: "Selon appareil et usage. On vous indique la recommandation."
+      - q: "Combien de temps ça dure ?"
+        a: "On confirme selon installation."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+      - q: "Tarifs ?"
+        a: "Selon type d’appareil et accès, annoncés avant."
+      - q: "Préparation avant venue ?"
+        a: "Accès dégagé autour de l’appareil."
+      - q: "Intervenez-vous en urgence ?"
+        a: "Rarement urgent, mais on propose un créneau rapide."
+      - q: "Quels infos envoyer ?"
+        a: "Type d’appareil + photo si possible."

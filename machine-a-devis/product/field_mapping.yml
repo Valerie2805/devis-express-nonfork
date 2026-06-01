@@ -1,0 +1,67 @@
+version: 1
+locale: fr-FR
+conventions:
+  trade_id:
+    allowed:
+      - plombier_chauffagiste
+      - serrurier
+      - electricien
+      - couvreur_zingueur
+      - pac_clim_chauffage
+      - vitrier
+      - debouchage_assainissement
+      - volets_portes_garage
+      - anti_nuisibles
+      - ramonage_poeles_cheminees
+  request_type:
+    source: "form_schema.yml -> trades.{trade_id}.request_types keys"
+  urgency:
+    allowed: [now, today, week]
+  channel_preference:
+    allowed: [call, whatsapp, sms]
+lead_field_map:
+  form.city_or_postal.city: lead.city
+  form.city_or_postal.postal_code: lead.postal_code
+  form.address: lead.address
+  form.request_type: lead.request_type
+  form.urgency: lead.urgency
+  form.photos.count: lead.photos_count
+  form.description: lead.description
+  form.slot_preference: lead.slot_preference
+  form.first_name: lead.first_name
+  form.phone: lead.phone
+  form.channel_preference: lead.channel_preference
+  form.extra_fields.*: lead.answers.*
+computed_fields:
+  in_zone:
+    description: "Calculé via géocodage ou simple règle (postal_code ∈ zones) / rayon"
+    outputs_to: lead.in_zone
+  phone_valid:
+    description: "Regex + normalisation E.164"
+    outputs_to: lead.phone_valid
+  required_photos:
+    description: "true si request_type ∈ trades.{trade_id}.required_photos_for"
+    outputs_to: scoring_context.required_photos
+scoring_input:
+  lead.trade_id: scoring.lead.trade_id
+  lead.request_type: scoring.lead.request_type
+  lead.in_zone: scoring.lead.in_zone
+  lead.phone_valid: scoring.lead.phone_valid
+  lead.urgency: scoring.lead.urgency
+  lead.channel_preference: scoring.lead.channel_preference
+  lead.description: scoring.lead.description
+  lead.address: scoring.lead.address
+  lead.photos_count: scoring.lead.photos_count
+  lead.slot_preference: scoring.lead.slot_preference
+  lead.answers: scoring.lead.answers
+outputs:
+  score:
+    type: number
+    outputs_to: lead.score
+  decision:
+    type: enum(reject,needs_followup,qualified)
+    outputs_to: lead.decision
+  tags:
+    type: list[string]
+    outputs_to: lead.tags
+

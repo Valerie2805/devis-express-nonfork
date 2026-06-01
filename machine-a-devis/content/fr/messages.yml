@@ -1,0 +1,133 @@
+version: 1
+locale: fr-FR
+placeholders:
+  company: "[Entreprise]"
+  city: "[Ville]"
+  zone: "[Zone]"
+  service: "[Service]"
+  first_name: "[Prénom]"
+  slot_1: "[Option 1]"
+  slot_2: "[Option 2]"
+  date: "[Date]"
+  time: "[Heure]"
+  address: "[Adresse]"
+channels:
+  - sms
+  - whatsapp
+common:
+  ack:
+    sms: "Bonjour [Prénom], c’est [Entreprise]. Merci pour votre demande ([Service]) à [Ville]. Je reviens vers vous très vite. Si c’est urgent, répondez URGENT."
+    whatsapp: "Bonjour [Prénom], c’est [Entreprise]. Merci pour votre demande ([Service]) à [Ville]. Je reviens vers vous très vite. Si c’est urgent, répondez URGENT."
+  out_of_zone:
+    sms: "Bonjour [Prénom], merci pour votre demande. Nous n’intervenons pas sur [Ville]. Si vous me donnez votre commune, je peux vous indiquer un confrère."
+    whatsapp: "Bonjour [Prénom], merci pour votre demande. Nous n’intervenons pas sur [Ville]. Si vous me donnez votre commune, je peux vous indiquer un confrère."
+  need_address:
+    sms: "Bonjour [Prénom], pour confirmer un créneau, j’ai besoin de l’adresse exacte (ou au moins le quartier) à [Ville]."
+    whatsapp: "Bonjour [Prénom], pour confirmer un créneau, j’ai besoin de l’adresse exacte (ou au moins le quartier) à [Ville]."
+  need_photo_generic:
+    sms: "Bonjour [Prénom], pour vous répondre précisément, pouvez-vous envoyer 1 photo ici ? Ensuite je vous propose un créneau."
+    whatsapp: "Bonjour [Prénom], pour vous répondre précisément, pouvez-vous envoyer 1 photo ici ? Ensuite je vous propose un créneau."
+  propose_slot:
+    sms: "Bonjour [Prénom], je peux passer [Option 1] ou [Option 2]. Répondez 1 ou 2. Adresse exacte ?"
+    whatsapp: "Bonjour [Prénom], je peux passer [Option 1] ou [Option 2]. Répondez 1 ou 2. Adresse exacte ?"
+  confirm_slot:
+    sms: "RDV confirmé : [Date] [Heure], [Adresse]. Si changement, répondez STOP ou envoyez un message."
+    whatsapp: "RDV confirmé : [Date] [Heure], [Adresse]. Si changement, répondez STOP ou envoyez un message."
+  missed_call_followup:
+    sms: "Bonjour [Prénom], c’est [Entreprise]. J’ai essayé de vous appeler. Pouvez-vous me donner votre code postal + 1 phrase sur le problème ?"
+    whatsapp: "Bonjour [Prénom], c’est [Entreprise]. J’ai essayé de vous appeler. Pouvez-vous me donner votre code postal + 1 phrase sur le problème ?"
+  ask_urgent_details:
+    sms: "Bonjour [Prénom], pour l’urgence : pouvez-vous préciser ce qui se passe (1 phrase) et envoyer 1 photo si possible ?"
+    whatsapp: "Bonjour [Prénom], pour l’urgence : pouvez-vous préciser ce qui se passe (1 phrase) et envoyer 1 photo si possible ?"
+trades:
+  plombier_chauffagiste:
+    need_photo:
+      sms: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la fuite/équipement (chauffe‑eau/chaudière) et préciser si l’eau est coupée au compteur ?"
+      whatsapp: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la fuite/équipement (chauffe‑eau/chaudière) et préciser si l’eau est coupée au compteur ?"
+    safety:
+      sms: "Si la fuite est importante : coupez l’eau au compteur si possible et protégez la zone. Envoyez une photo si vous pouvez."
+      whatsapp: "Si la fuite est importante : coupez l’eau au compteur si possible et protégez la zone. Envoyez une photo si vous pouvez."
+    quick_questions:
+      sms: "Dernière question : fuite active oui/non ? Et c’est plutôt WC/évier/douche, chauffe‑eau ou chaudière ?"
+      whatsapp: "Dernière question : fuite active oui/non ? Et c’est plutôt WC/évier/douche, chauffe‑eau ou chaudière ?"
+
+  serrurier:
+    need_photo:
+      sms: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la serrure/porte et préciser : porte claquée ou fermée à clé ?"
+      whatsapp: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la serrure/porte et préciser : porte claquée ou fermée à clé ?"
+    safety:
+      sms: "Si effraction : ne touchez pas aux traces si vous prévoyez une déclaration. Envoyez 1 photo, on priorise la sécurisation."
+      whatsapp: "Si effraction : ne touchez pas aux traces si vous prévoyez une déclaration. Envoyez 1 photo, on priorise la sécurisation."
+    pricing_reassurance:
+      sms: "On annonce le tarif (déplacement + main d’œuvre) avant intervention. Dites-moi votre code postal et le type de porte."
+      whatsapp: "On annonce le tarif (déplacement + main d’œuvre) avant intervention. Dites-moi votre code postal et le type de porte."
+
+  electricien:
+    need_photo:
+      sms: "Bonjour [Prénom], pouvez-vous envoyer 1 photo du tableau électrique (si possible) et préciser : panne totale ou partielle ?"
+      whatsapp: "Bonjour [Prénom], pouvez-vous envoyer 1 photo du tableau électrique (si possible) et préciser : panne totale ou partielle ?"
+    safety:
+      sms: "Si odeur de brûlé/étincelles : coupez le disjoncteur général et éloignez-vous du tableau. Dites-moi si c’est le cas."
+      whatsapp: "Si odeur de brûlé/étincelles : coupez le disjoncteur général et éloignez-vous du tableau. Dites-moi si c’est le cas."
+    quick_questions:
+      sms: "Le disjoncteur saute-t-il à la remise ? Oui/non. Avez-vous déjà coupure sur tout le logement ?"
+      whatsapp: "Le disjoncteur saute-t-il à la remise ? Oui/non. Avez-vous déjà coupure sur tout le logement ?"
+
+  couvreur_zingueur:
+    need_photo:
+      sms: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la zone concernée (depuis le sol si possible) et préciser : infiltration active à l’intérieur oui/non ?"
+      whatsapp: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la zone concernée (depuis le sol si possible) et préciser : infiltration active à l’intérieur oui/non ?"
+    safety:
+      sms: "Ne montez pas sur le toit si c’est glissant ou dangereux. Une photo depuis le sol suffit pour démarrer."
+      whatsapp: "Ne montez pas sur le toit si c’est glissant ou dangereux. Une photo depuis le sol suffit pour démarrer."
+
+  pac_clim_chauffage:
+    quick_questions:
+      sms: "Pour vous orienter : surface (m²) ? maison/appartement ? installation ou dépannage/entretien ?"
+      whatsapp: "Pour vous orienter : surface (m²) ? maison/appartement ? installation ou dépannage/entretien ?"
+    need_photo:
+      sms: "Si dépannage : envoyez 1 photo de l’unité (intérieure/extérieure) et, si possible, du message d’erreur."
+      whatsapp: "Si dépannage : envoyez 1 photo de l’unité (intérieure/extérieure) et, si possible, du message d’erreur."
+
+  vitrier:
+    need_photo:
+      sms: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la vitre (ou du cadre) et préciser si vous avez besoin d’une mise en sécurité immédiate ?"
+      whatsapp: "Bonjour [Prénom], pouvez-vous envoyer 1 photo de la vitre (ou du cadre) et préciser si vous avez besoin d’une mise en sécurité immédiate ?"
+    safety:
+      sms: "Évitez de manipuler les éclats. Si possible, éloignez enfants/animaux et sécurisez la zone."
+      whatsapp: "Évitez de manipuler les éclats. Si possible, éloignez enfants/animaux et sécurisez la zone."
+
+  debouchage_assainissement:
+    quick_questions:
+      sms: "Bonjour [Prénom], c’est plutôt WC, évier/douche ou colonne ? Refoulement/débordement oui/non ? maison ou appartement ?"
+      whatsapp: "Bonjour [Prénom], c’est plutôt WC, évier/douche ou colonne ? Refoulement/débordement oui/non ? maison ou appartement ?"
+    need_photo:
+      sms: "Si possible, envoyez 1 photo de l’évacuation concernée (ou du regard si accessible) + indiquez l’étage."
+      whatsapp: "Si possible, envoyez 1 photo de l’évacuation concernée (ou du regard si accessible) + indiquez l’étage."
+
+  volets_portes_garage:
+    need_photo:
+      sms: "Bonjour [Prénom], envoyez 1 photo du volet/porte et précisez : bloqué ouvert ou fermé ? manuel ou électrique ?"
+      whatsapp: "Bonjour [Prénom], envoyez 1 photo du volet/porte et précisez : bloqué ouvert ou fermé ? manuel ou électrique ?"
+    safety:
+      sms: "Si volet bloqué ouvert, évitez de forcer. Dites-moi l’adresse, on priorise si c’est un sujet de sécurité."
+      whatsapp: "Si volet bloqué ouvert, évitez de forcer. Dites-moi l’adresse, on priorise si c’est un sujet de sécurité."
+
+  anti_nuisibles:
+    quick_questions:
+      sms: "Bonjour [Prénom], quel nuisible (rats/souris, cafards, punaises, guêpes/frelons) et dans quelle pièce ?"
+      whatsapp: "Bonjour [Prénom], quel nuisible (rats/souris, cafards, punaises, guêpes/frelons) et dans quelle pièce ?"
+    need_photo:
+      sms: "Si possible, envoyez 1 photo. Pour punaises : nombre de pièces touchées ?"
+      whatsapp: "Si possible, envoyez 1 photo. Pour punaises : nombre de pièces touchées ?"
+    safety:
+      sms: "Pour guêpes/frelons : gardez vos distances et évitez toute manipulation. Envoyez une photo du nid si possible."
+      whatsapp: "Pour guêpes/frelons : gardez vos distances et évitez toute manipulation. Envoyez une photo du nid si possible."
+
+  ramonage_poeles_cheminees:
+    quick_questions:
+      sms: "Bonjour [Prénom], quel appareil (poêle/cheminée/chaudière) et avez-vous besoin d’une attestation ?"
+      whatsapp: "Bonjour [Prénom], quel appareil (poêle/cheminée/chaudière) et avez-vous besoin d’une attestation ?"
+    need_photo:
+      sms: "Si possible, envoyez 1 photo de l’appareil et de l’accès (conduit/porte)."
+      whatsapp: "Si possible, envoyez 1 photo de l’appareil et de l’accès (conduit/porte)."

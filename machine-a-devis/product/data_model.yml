@@ -1,0 +1,192 @@
+version: 1
+locale: fr-FR
+notes:
+  - "Ce modèle est volontairement agnostique (SQL ou NoSQL)."
+  - "PII (téléphone, prénom, adresse) reste uniquement côté base métier (leads/messages), jamais dans analytics."
+entities:
+  business:
+    description: "Configuration par entreprise / client artisan."
+    primary_key: business_id
+    fields:
+      business_id: { type: uuid, required: true }
+      created_at: { type: datetime, required: true }
+      updated_at: { type: datetime, required: true }
+      trade_id: { type: string, required: true }
+      company_name: { type: string, required: true }
+      phone_e164: { type: string, required: true, pii: true }
+      whatsapp_e164: { type: string, required: false, pii: true }
+      email_notifications: { type: string, required: false, pii: true }
+      city: { type: string, required: true }
+      zone_label: { type: string, required: true }
+      zones:
+        type: object
+        required: true
+        shape:
+          mode: { type: enum, values: [list, radius], required: true }
+          zone_list: { type: array[string], required: false }
+          radius_km: { type: number, required: false }
+          excluded_zones: { type: array[string], required: false }
+      services:
+        type: object
+        required: true
+        shape:
+          top_services: { type: array[string], required: true }
+          all_services: { type: array[string], required: false }
+      pricing:
+        type: object
+        required: false
+        shape:
+          travel_fee: { type: string, required: false }
+          diagnostic_fee: { type: string, required: false }
+          pricing_note: { type: string, required: false }
+      availability:
+        type: object
+        required: false
+        shape:
+          mode: { type: enum, values: [manual, google_calendar], required: true }
+          next_slot_text: { type: string, required: false }
+          calendar_id: { type: string, required: false }
+          working_hours: { type: object, required: false }
+      branding:
+        type: object
+        required: false
+        shape:
+          logo_url: { type: string, required: false }
+          primary_color: { type: string, required: false }
+          tone: { type: enum, values: [direct, pro, chaleureux], required: false }
+      integrations:
+        type: object
+        required: false
+        shape:
+          google_business_profile_url: { type: string, required: false }
+      settings:
+        type: object
+        required: false
+        shape:
+          response_sla_minutes: { type: number, required: false, default: 10 }
+          templates_enabled: { type: boolean, required: false, default: true }
+          tracking_enabled: { type: boolean, required: false, default: true }
+    indexes:
+      - { name: business_trade, fields: [trade_id] }
+      - { name: business_city, fields: [city] }
+
+  lead:
+    description: "Demande client final (formulaire) + enrichissements (score/status)."
+    primary_key: lead_id
+    fields:
+      lead_id: { type: uuid, required: true }
+      business_id: { type: uuid, required: true }
+      created_at: { type: datetime, required: true }
+      updated_at: { type: datetime, required: true }
+      trade_id: { type: string, required: true }
+      request_type: { type: string, required: true }
+      urgency: { type: enum, values: [now, today, week], required: true }
+      channel_preference: { type: enum, values: [call, whatsapp, sms], required: true }
+      first_name: { type: string, required: true, pii: true }
+      phone_e164: { type: string, required: true, pii: true }
+      email: { type: string, required: false, pii: true }
+      city: { type: string, required: true }
+      postal_code: { type: string, required: true }
+      address: { type: string, required: false, pii: true }
+      description: { type: string, required: false, pii: true }
+      photos:
+        type: array[object]
+        required: false
+        item_shape:
+          asset_id: { type: uuid, required: true }
+          url: { type: string, required: true }
+      photos_count: { type: number, required: true }
+      slot_preference: { type: string, required: false }
+      answers: { type: object, required: false }
+      in_zone: { type: boolean, required: true }
+      phone_valid: { type: boolean, required: true }
+      score: { type: number, required: true }
+      decision: { type: enum, values: [reject, needs_followup, qualified], required: true }
+      tags: { type: array[string], required: true }
+      status:
+        type: enum
+        values: [new, qualified, needs_followup, contacted, appointment, quote_sent, won, lost]
+        required: true
+      first_human_response_at: { type: datetime, required: false }
+      appointment:
+        type: object
+        required: false
+        shape:
+          date: { type: date, required: false }
+          time: { type: time, required: false }
+          address: { type: string, required: false, pii: true }
+      outcome:
+        type: object
+        required: false
+        shape:
+          estimated_value: { type: number, required: false }
+          lost_reason: { type: string, required: false }
+      attribution:
+        type: object
+        required: false
+        shape:
+          utm_source: { type: string, required: false }
+          utm_medium: { type: string, required: false }
+          utm_campaign: { type: string, required: false }
+          utm_term: { type: string, required: false }
+          utm_content: { type: string, required: false }
+          referrer: { type: string, required: false }
+          landing_path: { type: string, required: false }
+          primary_source: { type: string, required: false }
+    indexes:
+      - { name: lead_business_created, fields: [business_id, created_at] }
+      - { name: lead_business_status, fields: [business_id, status] }
+      - { name: lead_business_priority, fields: [business_id, urgency] }
+      - { name: lead_business_request, fields: [business_id, request_type] }
+
+  message_log:
+    description: "Historique des messages sortants (SMS/WhatsApp) liés aux leads."
+    primary_key: message_id
+    fields:
+      message_id: { type: uuid, required: true }
+      business_id: { type: uuid, required: true }
+      lead_id: { type: uuid, required: true }
+      created_at: { type: datetime, required: true }
+      channel: { type: enum, values: [sms, whatsapp], required: true }
+      template_id: { type: string, required: true }
+      rendered_text: { type: string, required: true, pii: true }
+      provider_message_id: { type: string, required: false }
+      status: { type: enum, values: [queued, sent, failed], required: true }
+    indexes:
+      - { name: msg_lead_created, fields: [lead_id, created_at] }
+
+  asset:
+    description: "Fichiers uploadés (photos) + assets brand (logo)."
+    primary_key: asset_id
+    fields:
+      asset_id: { type: uuid, required: true }
+      business_id: { type: uuid, required: true }
+      created_at: { type: datetime, required: true }
+      kind: { type: enum, values: [lead_photo, logo, gallery_photo], required: true }
+      content_type: { type: string, required: true }
+      size_bytes: { type: number, required: true }
+      url: { type: string, required: true }
+      sha256: { type: string, required: false }
+    indexes:
+      - { name: asset_business_kind, fields: [business_id, kind] }
+
+  analytics_event:
+    description: "Events analytics sans PII (tracking site + backoffice)."
+    primary_key: event_id
+    fields:
+      event_id: { type: uuid, required: true }
+      created_at: { type: datetime, required: true }
+      business_id: { type: uuid, required: true }
+      session_id: { type: string, required: true }
+      trade_id: { type: string, required: true }
+      name: { type: string, required: true }
+      page_type: { type: string, required: true }
+      page_path: { type: string, required: true }
+      properties: { type: object, required: false }
+      utm: { type: object, required: false }
+      referrer: { type: string, required: false }
+    indexes:
+      - { name: event_business_created, fields: [business_id, created_at] }
+      - { name: event_business_name, fields: [business_id, name] }
+      - { name: event_business_session, fields: [business_id, session_id] }
+

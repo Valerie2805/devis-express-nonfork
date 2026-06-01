@@ -1,0 +1,342 @@
+version: 1
+locale: fr-FR
+description: "Blueprints V1 pour assembler les pages du site (sections, ordre, variantes)."
+placeholders:
+  company: "[Entreprise]"
+  city: "[Ville]"
+  zone: "[Zone]"
+  phone: "[Téléphone]"
+global:
+  layout:
+    header:
+      components:
+        - type: "logo"
+        - type: "nav"
+          items:
+            - "Accueil"
+            - "Services"
+            - "Zones"
+            - "Tarifs"
+        - type: "cta_group"
+          ctas:
+            - "Appeler"
+            - "WhatsApp"
+            - "Devis 30s"
+    footer:
+      components:
+        - type: "nap_block"
+          fields:
+            - company
+            - phone
+            - city
+            - zone
+        - type: "legal_links"
+          items:
+            - "Mentions légales"
+            - "Politique de confidentialité"
+        - type: "trust_line"
+          text: "Tarif annoncé avant intervention. Réponse rapide."
+  ctas:
+    primary:
+      - id: call
+        label: "Appeler"
+        action: "tel:[Téléphone]"
+      - id: whatsapp
+        label: "WhatsApp"
+        action: "wa:[Téléphone]"
+      - id: quote
+        label: "Devis en 30 secondes"
+        action: "open_form"
+    sticky_mobile:
+      enabled: true
+      ctas:
+        - call
+        - whatsapp
+        - quote
+  proof_assets:
+    sources:
+      - "google_reviews"
+      - "photos_real"
+      - "insurance_badges"
+  seo:
+    titles:
+      home: "[Métier] à [Ville] — dépannage & devis"
+      services: "Services [Métier] — [Ville] et [Zone]"
+      zones: "Zones d’intervention — [Entreprise]"
+      tarifs: "Tarifs transparents — [Entreprise]"
+pages:
+  home:
+    slug: "/"
+    required_inputs:
+      - trade_id
+      - city
+      - zone
+      - phone
+      - top_services
+    sections_order:
+      - hero
+      - proof_bar
+      - services_cards
+      - availability
+      - reviews
+      - process_3_steps
+      - faq_short
+      - quote_form
+    sections:
+      hero:
+        variants: [A, B, C]
+        variant_rules:
+          A: "default"
+          B: "use when urgency-heavy trades (serrurier, plombier, vitrier)"
+          C: "use when high-ticket trades (couvreur, PAC)"
+        components:
+          - type: "headline"
+            source: "site_copy.yml -> trades.{trade_id}.hero.h1"
+          - type: "subtitle"
+            source: "site_copy.yml -> trades.{trade_id}.hero.subtitle"
+          - type: "cta_group"
+            source: "site_copy.yml -> trades.{trade_id}.hero.ctas"
+          - type: "trust_mini"
+            items:
+              - "Réponse rapide"
+              - "Devis clair"
+              - "Zone : [Zone]"
+      proof_bar:
+        variants: [A, B]
+        components:
+          - type: "rating_summary"
+            source: "google_reviews"
+          - type: "badges"
+            items:
+              - "Assuré"
+              - "Devis avant intervention"
+          - type: "service_area"
+            text: "Intervention sur [Zone]"
+      services_cards:
+        variants: [A, B]
+        components:
+          - type: "cards"
+            source: "site_copy.yml -> trades.{trade_id}.services"
+            limit: 6
+      availability:
+        enabled_by_default: true
+        variants: [A]
+        components:
+          - type: "next_available_slot"
+            source: "backoffice.availability"
+          - type: "secondary_cta"
+            label: "Être rappelé"
+            action: "open_form"
+      reviews:
+        variants: [A, B]
+        components:
+          - type: "reviews_list"
+            source: "google_reviews"
+            limit: 3
+          - type: "photo_strip"
+            source: "photos_real"
+            limit: 6
+      process_3_steps:
+        variants: [A]
+        components:
+          - type: "steps"
+            steps:
+              - title: "Vous décrivez"
+                text: "Appel, WhatsApp ou devis en 30 secondes."
+              - title: "On confirme"
+                text: "Questions rapides + tarif annoncé avant intervention."
+              - title: "On intervient"
+                text: "Créneau confirmé et intervention."
+      faq_short:
+        variants: [A]
+        components:
+          - type: "faq"
+            source: "site_copy.yml -> trades.{trade_id}.faq"
+            limit: 8
+      quote_form:
+        variants: [A]
+        components:
+          - type: "form_embed"
+            source: "form_schema.yml"
+            title_source: "site_copy.yml -> trades.{trade_id}.pages.home.quote_form.title"
+            subtitle_source: "site_copy.yml -> trades.{trade_id}.pages.home.quote_form.subtitle"
+
+  services:
+    slug: "/services"
+    required_inputs:
+      - trade_id
+      - city
+      - zone
+    sections_order:
+      - page_intro
+      - service_sections
+      - quote_form_cta
+      - quote_form
+      - faq_short
+    sections:
+      page_intro:
+        variants: [A]
+        components:
+          - type: "headline"
+            source: "site_copy.yml -> trades.{trade_id}.pages.services.page_intro.headline"
+            text: "Services [Métier] à [Ville]"
+          - type: "subtitle"
+            source: "site_copy.yml -> trades.{trade_id}.pages.services.page_intro.subtitle"
+            text: "Intervention sur [Zone]. Décrivez votre besoin et recevez une réponse rapide."
+      service_sections:
+        variants: [A]
+        components:
+          - type: "service_list"
+            source: "site_copy.yml -> trades.{trade_id}.services"
+            per_service_template:
+              components:
+                - type: "when_to_call"
+                  text: "Décrivez le problème (1 phrase) + photo si possible."
+                - type: "how_we_work"
+                  text: "Tarif annoncé avant intervention."
+                - type: "cta_inline"
+                  label: "Demander un devis"
+                  action: "open_form"
+      quote_form_cta:
+        variants: [A]
+        components:
+          - type: "cta_banner"
+            text_source: "site_copy.yml -> trades.{trade_id}.pages.services.quote_form_cta.text"
+            cta_source: "site_copy.yml -> trades.{trade_id}.pages.services.quote_form_cta.cta"
+            text: "Besoin d’un devis ? Répondez en 30 secondes."
+            cta: "Devis en 30 secondes"
+      quote_form:
+        variants: [A]
+        components:
+          - type: "form_embed"
+            source: "form_schema.yml"
+            title_source: "site_copy.yml -> trades.{trade_id}.pages.services.quote_form.title"
+            subtitle_source: "site_copy.yml -> trades.{trade_id}.pages.services.quote_form.subtitle"
+      faq_short:
+        variants: [A]
+        components:
+          - type: "faq"
+            source: "site_copy.yml -> trades.{trade_id}.faq"
+            limit: 6
+
+  zones:
+    slug: "/zones"
+    required_inputs:
+      - city
+      - zone_list
+    sections_order:
+      - page_intro
+      - zones_list
+      - local_faq
+      - quote_form_cta
+      - quote_form
+    sections:
+      page_intro:
+        variants: [A]
+        components:
+          - type: "headline"
+            source: "site_copy.yml -> trades.{trade_id}.pages.zones.page_intro.headline"
+            text: "Zones d’intervention"
+          - type: "subtitle"
+            source: "site_copy.yml -> trades.{trade_id}.pages.zones.page_intro.subtitle"
+            text: "Nous intervenons sur [Zone]. Vérifiez si vous êtes couvert."
+      zones_list:
+        variants: [A, B]
+        components:
+          - type: "area_list"
+            source: "client.zone_list"
+            layout: "columns"
+      local_faq:
+        variants: [A]
+        components:
+          - type: "faq"
+            items:
+              - q: "Intervenez-vous en dehors de ces zones ?"
+                a: "Selon planning. Envoyez votre code postal, on vous répond rapidement."
+              - q: "Quels délais sur ma commune ?"
+                a: "On propose un créneau après qualification (urgence, accès, distance)."
+      quote_form_cta:
+        variants: [A]
+        components:
+          - type: "cta_banner"
+            text_source: "site_copy.yml -> trades.{trade_id}.pages.zones.quote_form_cta.text"
+            cta_source: "site_copy.yml -> trades.{trade_id}.pages.zones.quote_form_cta.cta"
+            text: "Dites-nous votre commune et votre besoin."
+            cta: "Devis en 30 secondes"
+      quote_form:
+        variants: [A]
+        components:
+          - type: "form_embed"
+            source: "form_schema.yml"
+            title_source: "site_copy.yml -> trades.{trade_id}.pages.zones.quote_form.title"
+            subtitle_source: "site_copy.yml -> trades.{trade_id}.pages.zones.quote_form.subtitle"
+
+  tarifs:
+    slug: "/tarifs"
+    required_inputs:
+      - trade_id
+      - city
+      - zone
+      - travel_fee
+      - diagnostic_fee
+    sections_order:
+      - hero
+      - how_pricing_works
+      - pricing_blocks
+      - included_exclusions
+      - faq
+      - quote_form_cta
+      - quote_form
+    sections:
+      hero:
+        variants: [A]
+        components:
+          - type: "headline"
+            source: "tarifs_transparents.yml -> trades.{trade_id}.hero.h1"
+          - type: "subtitle"
+            source: "tarifs_transparents.yml -> trades.{trade_id}.hero.subtitle"
+          - type: "cta_group"
+            source: "tarifs_transparents.yml -> common.page.hero.ctas"
+      how_pricing_works:
+        variants: [A]
+        components:
+          - type: "bullets"
+            title_source: "tarifs_transparents.yml -> common.page.sections.how_pricing_works.title"
+            bullets_source: "tarifs_transparents.yml -> common.page.sections.how_pricing_works.bullets"
+      pricing_blocks:
+        variants: [A]
+        components:
+          - type: "blocks"
+            source: "tarifs_transparents.yml -> trades.{trade_id}.pricing_blocks"
+      included_exclusions:
+        variants: [A]
+        components:
+          - type: "two_columns"
+            left:
+              title_source: "tarifs_transparents.yml -> common.page.sections.included.title"
+              bullets_source: "tarifs_transparents.yml -> common.page.sections.included.bullets"
+            right:
+              title_source: "tarifs_transparents.yml -> common.page.sections.exclusions.title"
+              bullets_source: "tarifs_transparents.yml -> common.page.sections.exclusions.bullets"
+      faq:
+        variants: [A]
+        components:
+          - type: "faq"
+            items_source: "tarifs_transparents.yml -> common.page.sections.faq.items"
+          - type: "faq"
+            items_source: "tarifs_transparents.yml -> trades.{trade_id}.micro_faq"
+      quote_form_cta:
+        variants: [A]
+        components:
+          - type: "cta_banner"
+            text_source: "tarifs_transparents.yml -> common.page.sections.quote_form_cta.text"
+            cta_source: "tarifs_transparents.yml -> common.page.sections.quote_form_cta.cta"
+            text: "Pour un prix précis : décrivez en 30 secondes + photo."
+            cta: "Devis en 30 secondes"
+      quote_form:
+        variants: [A]
+        components:
+          - type: "form_embed"
+            source: "form_schema.yml"
+            title_source: "tarifs_transparents.yml -> common.page.sections.quote_form.title"
+            subtitle_source: "tarifs_transparents.yml -> common.page.sections.quote_form.subtitle"

@@ -1,0 +1,271 @@
+version: 1
+locale: fr-FR
+placeholders:
+  company: "[Entreprise]"
+  city: "[Ville]"
+  zone: "[Zone]"
+  phone: "[Téléphone]"
+  travel_fee: "[Frais de déplacement]"
+  diagnostic_fee: "[Frais de diagnostic]"
+common:
+  page:
+    title: "Tarifs transparents — [Entreprise]"
+    hero:
+      variants:
+        B:
+          h1: "Tarifs à [Ville] — prix annoncés avant intervention"
+          subtitle: "Décrivez votre besoin + une photo si possible. On confirme le tarif avant de démarrer."
+          ctas:
+            - "Appeler"
+            - "Devis express"
+      h1: "Tarifs transparents à [Ville]"
+      subtitle: "On vous annonce le tarif avant intervention. Pas de surprise."
+      ctas:
+        - "Appeler"
+        - "Devis en 30 secondes"
+    sections:
+      how_pricing_works:
+        title: "Comment les tarifs sont calculés"
+        bullets:
+          - "Le prix dépend du type d’intervention, de l’accès, du temps sur place et des pièces éventuelles."
+          - "Avant de démarrer, on confirme le tarif ou une fourchette, selon votre cas."
+          - "Envoyer une photo permet souvent d’annoncer plus précisément."
+      included:
+        title: "Ce qui est inclus"
+        bullets:
+          - "Diagnostic de la situation (sur place si nécessaire)"
+          - "Annonce du tarif avant intervention"
+          - "Conseils de prévention quand c’est utile"
+      exclusions:
+        title: "Ce qui peut faire varier le prix"
+        bullets:
+          - "Accès difficile / intervention longue / équipements spécifiques"
+          - "Pièces à remplacer (toujours annoncées avant)"
+          - "Intervention hors zone"
+      faq:
+        title: "Questions fréquentes"
+        items:
+          - q: "Pouvez-vous donner un prix par téléphone ?"
+            a: "Souvent une estimation, oui. Avec 1 photo et votre adresse, on est plus précis."
+          - q: "Dois-je payer quelque chose si vous ne pouvez pas réparer ?"
+            a: "On vous explique la situation. Selon le cas, un diagnostic peut être facturé si annoncé à l’avance."
+          - q: "Comment éviter les mauvaises surprises ?"
+            a: "Décrivez le problème + envoyez une photo. On confirme le tarif avant de démarrer."
+      quote_form_cta:
+        variants:
+          B:
+            text: "Pour un prix précis : 1 phrase + photo si possible."
+            cta: "Devis express"
+        text: "Pour un prix précis : décrivez en 30 secondes + photo."
+        cta: "Devis en 30 secondes"
+      quote_form:
+        variants:
+          B:
+            title: "Devis express"
+            subtitle: "Décrivez le besoin + code postal. Photo si possible."
+        title: "Devis express"
+        subtitle: "4 infos : quoi, où, quand, téléphone. On vous rappelle."
+trades:
+  generic:
+    hero:
+      h1: "Tarifs [Métier] à [Ville]"
+      subtitle: "Prix annoncé avant intervention/prestation. Demande rapide en ligne."
+    pricing_blocks:
+      - title: "Devis"
+        content: "Décrivez votre besoin et votre adresse : on vous répond rapidement avec une estimation."
+      - title: "Déplacement"
+        content: "Frais de déplacement : [Frais de déplacement] (selon zone)."
+      - title: "Diagnostic"
+        content: "Si nécessaire : [Frais de diagnostic] (annoncé avant)."
+    micro_faq:
+      - q: "Pouvez-vous donner un prix rapidement ?"
+        a: "Oui, avec 2–3 infos (besoin + ville + photos si possible)."
+      - q: "Zone d’intervention ?"
+        a: "[Zone]."
+
+  plombier_chauffagiste:
+    hero:
+      variants:
+        B:
+          h1: "Prix plomberie à [Ville] — annoncé avant intervention"
+          subtitle: "Fuite, débouchage, chauffe‑eau. Envoyez une photo pour une estimation plus précise."
+      h1: "Tarifs plomberie / chauffage à [Ville]"
+      subtitle: "Fuite, débouchage, chauffe‑eau, chaudière. Tarif annoncé avant intervention."
+    pricing_blocks:
+      - title: "Déplacement"
+        content: "Frais de déplacement : [Frais de déplacement] (selon zone)."
+      - title: "Diagnostic"
+        content: "Si un diagnostic sur place est nécessaire : [Frais de diagnostic] (annoncé avant)."
+      - title: "Intervention"
+        content: "Le prix dépend de la nature de la panne et des pièces éventuelles. On confirme avant de démarrer."
+    micro_faq:
+      - q: "Débouchage : vous annoncez avant ?"
+        a: "Oui, selon accès et type d’évacuation. Une photo aide."
+      - q: "Fuite : c’est urgent ?"
+        a: "Indiquez si la fuite est active. On priorise et on confirme le créneau."
+
+  fleuriste:
+    hero:
+      variants:
+        B:
+          h1: "Prix fleurs à [Ville] — bouquets & livraison"
+          subtitle: "Occasion + budget = on vous propose une composition avant préparation/livraison."
+      h1: "Tarifs fleuriste à [Ville]"
+      subtitle: "Bouquets, compositions et livraison. Prix annoncé avant préparation."
+    pricing_blocks:
+      - title: "Budget bouquet"
+        content: "Bouquets selon budget : vous choisissez une fourchette, on confirme la composition avant préparation."
+      - title: "Livraison"
+        content: "Livraison sur [Zone] : frais variables selon distance et créneau. On confirme avant envoi."
+      - title: "Occasion"
+        content: "Anniversaire, mariage, deuil : on adapte le style et le prix selon vos besoins, validés avant réalisation."
+    micro_faq:
+      - q: "Vous livrez le jour même ?"
+        a: "Selon stock et créneau. Dites l’adresse + l’heure souhaitée."
+      - q: "Je veux un bouquet sans allergènes ?"
+        a: "Indiquez vos contraintes, on propose des alternatives."
+
+  serrurier:
+    hero:
+      variants:
+        B:
+          h1: "Prix serrurier à [Ville] — ouverture de porte, tarif annoncé"
+          subtitle: "Porte claquée / clé cassée. Photo de la serrure = réponse plus rapide."
+      h1: "Tarifs serrurerie à [Ville]"
+      subtitle: "Ouverture de porte, cylindre, sécurisation. Tarif annoncé avant intervention."
+    pricing_blocks:
+      - title: "Déplacement"
+        content: "Frais de déplacement : [Frais de déplacement] (selon zone)."
+      - title: "Ouverture de porte"
+        content: "Le tarif varie selon : porte claquée / fermée à clé, type de serrure, accès. On annonce avant d’agir."
+      - title: "Pièces"
+        content: "Si remplacement (cylindre/serrure) : on vous annonce la pièce et le prix avant pose."
+    micro_faq:
+      - q: "Porte claquée : c’est moins cher ?"
+        a: "Souvent oui. Une photo de la serrure aide à confirmer."
+      - q: "Effraction : sécurisation rapide ?"
+        a: "Oui selon disponibilité. Envoyez une photo, on priorise."
+
+  electricien:
+    hero:
+      variants:
+        B:
+          h1: "Prix électricien à [Ville] — dépannage & mise en sécurité"
+          subtitle: "Panne, tableau, disjoncteur. Photo du tableau si possible."
+      h1: "Tarifs électricité à [Ville]"
+      subtitle: "Dépannage, tableau, mise en sécurité. Tarif annoncé avant intervention."
+    pricing_blocks:
+      - title: "Déplacement"
+        content: "Frais de déplacement : [Frais de déplacement] (selon zone)."
+      - title: "Diagnostic"
+        content: "Sur certaines pannes, un diagnostic est nécessaire avant chiffrage complet : [Frais de diagnostic] (annoncé avant)."
+      - title: "Travaux"
+        content: "Si travaux/ pièces : on détaille sur devis avant réalisation."
+    micro_faq:
+      - q: "Coupure totale : c’est urgent ?"
+        a: "Oui. Si odeur de brûlé/étincelles, coupez au disjoncteur général."
+
+  couvreur_zingueur:
+    hero:
+      h1: "Tarifs toiture / zinguerie à [Ville]"
+      subtitle: "Fuite, réparations, gouttières. Diagnostic + devis clair."
+    pricing_blocks:
+      - title: "Diagnostic"
+        content: "Souvent nécessaire avant chiffrage : on confirme le coût/forfait avant déplacement."
+      - title: "Réparation"
+        content: "Le prix dépend de l’accès et de la zone à traiter. Photos conseillées."
+      - title: "Rénovation"
+        content: "Devis détaillé après visite (surface, matériaux, accès)."
+    micro_faq:
+      - q: "Fuite active : vous venez vite ?"
+        a: "Oui selon zone et planning. Ne montez pas sur le toit si risque."
+
+  pac_clim_chauffage:
+    hero:
+      h1: "Tarifs PAC / clim à [Ville]"
+      subtitle: "Installation, entretien, dépannage. Devis clair après pré-qualification."
+    pricing_blocks:
+      - title: "Pré-qualification"
+        content: "Surface (m²) + type logement = estimation plus rapide."
+      - title: "Dépannage"
+        content: "Selon panne et accès. Photo du message d’erreur utile."
+      - title: "Installation"
+        content: "Devis détaillé après étude (dimensionnement, emplacement)."
+    micro_faq:
+      - q: "Vous annoncez avant ?"
+        a: "On annonce la démarche et les coûts (diagnostic/devis) avant de démarrer."
+
+  vitrier:
+    hero:
+      h1: "Tarifs vitrerie à [Ville]"
+      subtitle: "Bris de glace, mise en sécurité, remplacement. Devis annoncé avant intervention."
+    pricing_blocks:
+      - title: "Mise en sécurité"
+        content: "Le coût dépend de l’accès et du type de vitrage. Photo recommandée."
+      - title: "Remplacement"
+        content: "Selon dimensions et vitrage (simple/double). Devis avant commande."
+      - title: "Assurance"
+        content: "On fournit les éléments nécessaires selon votre dossier."
+    micro_faq:
+      - q: "Vitre cassée : intervention rapide ?"
+        a: "Oui surtout pour sécuriser. Envoyez une photo."
+
+  debouchage_assainissement:
+    hero:
+      h1: "Tarifs débouchage / assainissement à [Ville]"
+      subtitle: "WC, évier, colonne, refoulement. Prix annoncé selon accès."
+    pricing_blocks:
+      - title: "Débouchage"
+        content: "Le prix dépend de l’accès, du type d’évacuation et du temps. On annonce avant."
+      - title: "Refoulement"
+        content: "Cas urgent. Indiquez maison/appartement + étage."
+      - title: "Inspection caméra"
+        content: "Option si récidive, annoncée avant."
+    micro_faq:
+      - q: "Vous donnez un prix par téléphone ?"
+        a: "Souvent une estimation. Photo + étage = plus précis."
+
+  volets_portes_garage:
+    hero:
+      h1: "Tarifs volets roulants / porte de garage à [Ville]"
+      subtitle: "Déblocage, moteur, remplacement. Tarif annoncé avant intervention."
+    pricing_blocks:
+      - title: "Dépannage"
+        content: "Selon : bloqué ouvert/fermé, manuel/électrique, accès. Photo recommandée."
+      - title: "Pièces"
+        content: "Si moteur/pièces : on annonce avant remplacement."
+      - title: "Remplacement"
+        content: "Devis selon dimensions et modèle."
+    micro_faq:
+      - q: "Bloqué ouvert : c’est urgent ?"
+        a: "Souvent oui (sécurité). Indiquez urgence."
+
+  anti_nuisibles:
+    hero:
+      h1: "Tarifs anti-nuisibles à [Ville]"
+      subtitle: "Traitement adapté au cas. Devis clair après qualification."
+    pricing_blocks:
+      - title: "Qualification"
+        content: "Type de nuisible + pièce + nombre de pièces (punaises) = devis plus rapide."
+      - title: "Intervention"
+        content: "Selon niveau d’infestation et accès. Devis annoncé avant."
+      - title: "Suivi"
+        content: "Selon cas, plusieurs passages peuvent être nécessaires (expliqué au devis)."
+    micro_faq:
+      - q: "Guêpes/frelons : intervention rapide ?"
+        a: "Oui selon disponibilité. Envoyez photo du nid si possible."
+
+  ramonage_poeles_cheminees:
+    hero:
+      h1: "Tarifs ramonage à [Ville]"
+      subtitle: "Poêle, cheminée, chaudière. Attestation selon prestation."
+    pricing_blocks:
+      - title: "Ramonage"
+        content: "Prix selon type d’appareil et accès. Confirmé avant intervention."
+      - title: "Diagnostic"
+        content: "Si problème de tirage/fumées : diagnostic annoncé avant."
+      - title: "Attestation"
+        content: "Fournie si applicable à votre situation."
+    micro_faq:
+      - q: "Combien de temps ça dure ?"
+        a: "Selon installation. On confirme au moment du RDV."

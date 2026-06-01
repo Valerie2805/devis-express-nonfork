@@ -1,0 +1,379 @@
+version: 1
+locale: fr-FR
+lead_object:
+  trade_id: string
+  request_type: string
+  in_zone: boolean
+  urgency: enum(now,today,week)
+  channel_preference: enum(call,whatsapp,sms)
+  first_name: string
+  phone: string
+  email: string?
+  city: string
+  postal_code: string
+  address: string?
+  description: string?
+  photos_count: integer
+  slot_preference: string?
+  answers: object
+common_fields:
+  - id: city_or_postal
+    label: "Ville / code postal"
+    required: true
+    maps_to:
+      city: city
+      postal_code: postal_code
+  - id: address
+    label: "Adresse (ou quartier)"
+    required: false
+    maps_to:
+      address: address
+  - id: request_type
+    label: "Type de demande"
+    required: true
+    maps_to:
+      request_type: request_type
+  - id: urgency
+    label: "Urgence"
+    required: true
+    options:
+      - now
+      - today
+      - week
+    maps_to:
+      urgency: urgency
+  - id: photos
+    label: "Photos"
+    required: false
+    maps_to:
+      photos_count: photos_count
+  - id: description
+    label: "Détails"
+    required: false
+    maps_to:
+      description: description
+  - id: slot_preference
+    label: "Créneau préféré"
+    required: false
+    options:
+      - matin
+      - midi
+      - apres_midi
+      - soir
+    maps_to:
+      slot_preference: slot_preference
+  - id: first_name
+    label: "Prénom"
+    required: true
+    maps_to:
+      first_name: first_name
+  - id: phone
+    label: "Téléphone"
+    required: true
+    maps_to:
+      phone: phone
+  - id: channel_preference
+    label: "Préférence de contact"
+    required: true
+    options:
+      - call
+      - whatsapp
+      - sms
+    maps_to:
+      channel_preference: channel_preference
+trades:
+  generic:
+    request_types:
+      devis: "Demande de devis"
+      info: "Renseignement"
+      urgence: "Urgence"
+    extra_fields: []
+    required_photos_for: []
+
+  plombier_chauffagiste:
+    request_types:
+      fuite_eau: "Fuite d’eau"
+      debouchage: "WC / canalisation bouchée"
+      chauffe_eau_panne: "Chauffe-eau en panne"
+      chaudiere_panne: "Chaudière en panne"
+      remplacement_installation: "Remplacement / installation"
+      recherche_fuite: "Recherche de fuite"
+    extra_fields:
+      - id: fuite_active
+        label: "Fuite active ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.fuite_active: answers.fuite_active
+      - id: eau_coupee_possible
+        label: "Pouvez-vous couper l’eau au compteur ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.eau_coupee_possible: answers.eau_coupee_possible
+    required_photos_for:
+      - fuite_eau
+      - chauffe_eau_panne
+      - chaudiere_panne
+      - recherche_fuite
+
+  fleuriste:
+    request_types:
+      bouquet: "Bouquet / composition"
+      livraison: "Livraison de fleurs"
+      mariage: "Mariage"
+      deuil: "Deuil / cérémonie"
+      plantes: "Plantes / accessoires"
+    extra_fields:
+      - id: budget
+        label: "Budget (en €)"
+        required: false
+        type: number
+        maps_to:
+          answers.budget: answers.budget
+      - id: occasion
+        label: "Occasion"
+        required: false
+        type: enum
+        options:
+          - anniversaire
+          - mariage
+          - deuil
+          - autre
+        maps_to:
+          answers.occasion: answers.occasion
+    required_photos_for: []
+
+  serrurier:
+    request_types:
+      porte_claquee: "Porte claquée"
+      porte_fermee_a_cle: "Porte fermée à clé"
+      cle_cassee_ou_perdue: "Clé cassée / perdue"
+      effraction_securisation: "Effraction / sécurisation"
+      changement_serrure: "Changement serrure / cylindre"
+    extra_fields:
+      - id: mode_porte
+        label: "La porte est…"
+        required: true
+        type: enum
+        options:
+          - claquee
+          - fermee_a_cle
+        maps_to:
+          answers.mode_porte: answers.mode_porte
+      - id: effraction
+        label: "Effraction ?"
+        required: false
+        type: boolean
+        maps_to:
+          answers.effraction: answers.effraction
+    required_photos_for:
+      - porte_claquee
+      - porte_fermee_a_cle
+      - effraction_securisation
+      - changement_serrure
+
+  electricien:
+    request_types:
+      panne_totale: "Panne totale"
+      panne_partielle: "Panne partielle"
+      disjoncteur_saute: "Disjoncteur qui saute"
+      tableau_electrique: "Tableau électrique"
+      mise_en_securite: "Mise en sécurité / conformité"
+      prises_eclairage: "Prises / éclairage"
+    extra_fields:
+      - id: danger_brule_etincelle
+        label: "Odeur de brûlé / étincelles ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.danger_brule_etincelle: answers.danger_brule_etincelle
+    required_photos_for:
+      - disjoncteur_saute
+      - tableau_electrique
+
+  couvreur_zingueur:
+    request_types:
+      fuite_infiltration: "Fuite / infiltration"
+      reparation_tuiles: "Réparation tuiles/ardoises"
+      renovation_toiture: "Rénovation toiture"
+      gouttieres_zinc: "Gouttières / zinc"
+      demoussage: "Nettoyage / démoussage"
+    extra_fields:
+      - id: infiltration_active
+        label: "Infiltration active à l’intérieur ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.infiltration_active: answers.infiltration_active
+    required_photos_for:
+      - fuite_infiltration
+      - reparation_tuiles
+
+  pac_clim_chauffage:
+    request_types:
+      installation: "Installation"
+      entretien: "Entretien"
+      panne: "Panne"
+      remplacement: "Remplacement"
+    extra_fields:
+      - id: objectif
+        label: "Vous souhaitez…"
+        required: true
+        type: enum
+        options:
+          - installer
+          - entretenir
+          - depanner
+          - remplacer
+        maps_to:
+          answers.objectif: answers.objectif
+      - id: surface_m2
+        label: "Surface (m²)"
+        required: true
+        type: number
+        maps_to:
+          answers.surface_m2: answers.surface_m2
+      - id: type_logement
+        label: "Type de logement"
+        required: true
+        type: enum
+        options:
+          - appartement
+          - maison
+        maps_to:
+          answers.type_logement: answers.type_logement
+    required_photos_for:
+      - panne
+
+  vitrier:
+    request_types:
+      vitre_cassee: "Vitre cassée"
+      mise_en_securite: "Mise en sécurité"
+      remplacement_double_vitrage: "Remplacement double vitrage"
+      vitrine_commerce: "Vitrine commerce"
+    extra_fields:
+      - id: besoin_securisation_immediate
+        label: "Besoin de mise en sécurité immédiate ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.besoin_securisation_immediate: answers.besoin_securisation_immediate
+    required_photos_for:
+      - vitre_cassee
+      - vitrine_commerce
+
+  debouchage_assainissement:
+    request_types:
+      wc: "WC bouché"
+      evier_douche: "Évier / douche bouché"
+      colonne: "Colonne / évacuation"
+      refoulement: "Refoulement / débordement"
+      inspection_camera: "Inspection caméra"
+    extra_fields:
+      - id: maison_ou_appartement
+        label: "Type de logement"
+        required: true
+        type: enum
+        options:
+          - maison
+          - appartement
+        maps_to:
+          answers.maison_ou_appartement: answers.maison_ou_appartement
+      - id: refoulement_oui_non
+        label: "Refoulement / débordement ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.refoulement_oui_non: answers.refoulement_oui_non
+    required_photos_for:
+      - refoulement
+
+  volets_portes_garage:
+    request_types:
+      volet_bloque_ouvert: "Volet bloqué ouvert"
+      volet_bloque_ferme: "Volet bloqué fermé"
+      moteur_panne: "Moteur / panne"
+      porte_garage_bloquee: "Porte de garage bloquée"
+      remplacement: "Remplacement"
+    extra_fields:
+      - id: bloque_ouvert_ou_ferme
+        label: "C’est bloqué…"
+        required: true
+        type: enum
+        options:
+          - ouvert
+          - ferme
+        maps_to:
+          answers.bloque_ouvert_ou_ferme: answers.bloque_ouvert_ou_ferme
+      - id: manuel_ou_electrique
+        label: "Type"
+        required: true
+        type: enum
+        options:
+          - manuel
+          - electrique
+        maps_to:
+          answers.manuel_ou_electrique: answers.manuel_ou_electrique
+    required_photos_for:
+      - volet_bloque_ouvert
+      - moteur_panne
+      - porte_garage_bloquee
+
+  anti_nuisibles:
+    request_types:
+      guepes_frelons: "Guêpes / frelons"
+      punaises: "Punaises de lit"
+      rats_souris: "Rats / souris"
+      cafards: "Cafards"
+      autre: "Autre"
+    extra_fields:
+      - id: type_nuisible
+        label: "Nuisible"
+        required: true
+        type: enum
+        options:
+          - guepes_frelons
+          - punaises
+          - rats_souris
+          - cafards
+          - autre
+        maps_to:
+          answers.type_nuisible: answers.type_nuisible
+      - id: piece
+        label: "Pièce concernée"
+        required: true
+        type: string
+        maps_to:
+          answers.piece: answers.piece
+      - id: pieces_concernees
+        label: "Nombre de pièces concernées (punaises)"
+        required: false
+        type: number
+        maps_to:
+          answers.pieces_concernees: answers.pieces_concernees
+    required_photos_for:
+      - guepes_frelons
+
+  ramonage_poeles_cheminees:
+    request_types:
+      ramonage: "Ramonage"
+      diagnostic_tirage: "Diagnostic tirage / fumées"
+      entretien: "Entretien"
+    extra_fields:
+      - id: type_appareil
+        label: "Type d’appareil"
+        required: true
+        type: enum
+        options:
+          - poele
+          - cheminee
+          - chaudiere
+        maps_to:
+          answers.type_appareil: answers.type_appareil
+      - id: attestation_necessaire
+        label: "Attestation nécessaire ?"
+        required: true
+        type: boolean
+        maps_to:
+          answers.attestation_necessaire: answers.attestation_necessaire

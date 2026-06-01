@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Audit de présence en ligne</title>
+    <style>
+      :root { color-scheme: light; }
+      body { font-family: Arial, Helvetica, sans-serif; margin: 0; background: #f6f7fb; color: #0f172a; }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 24px; }
+      .card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 18px; }
+      h1 { font-size: 22px; margin: 0; }
+      h2 { font-size: 16px; margin: 0 0 10px 0; }
+      h3 { font-size: 14px; margin: 0; }
+      .muted { color: #475569; font-size: 12px; }
+      .grid { display: grid; gap: 14px; }
+      .sev { display:inline-flex; align-items:center; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+      .sev-high { background:#fee2e2; color:#991b1b; }
+      .sev-med { background:#ffedd5; color:#9a3412; }
+      .sev-low { background:#e0f2fe; color:#075985; }
+      .finding { border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px; }
+      .finding-head { display:flex; justify-content:space-between; gap: 10px; align-items:flex-start; }
+      .finding p { margin: 8px 0 0 0; font-size: 13px; color: #0f172a; }
+      ul { margin: 8px 0 0 18px; padding: 0; }
+      li { margin: 4px 0; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+      .evidence { margin-top: 10px; padding: 10px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; }
+      .evidence a { color: #0f172a; text-decoration: underline; word-break: break-all; }
+      .hr { height: 1px; background: #e5e7eb; margin: 14px 0; }
+      .pill { display:inline-flex; padding: 4px 10px; border-radius: 999px; background:#f1f5f9; font-size: 12px; color:#0f172a; margin: 4px 6px 0 0; }
+      .pre { white-space: pre-wrap; }
+      @media print {
+        body { background: white; }
+        .wrap { padding: 0; }
+        .card { border: none; border-radius: 0; padding: 0; }
+        a { color: black; text-decoration: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+          <div>
+            <h1>Audit de présence en ligne</h1>
+            <div class="muted">https://example.com/</div>
+            <div class="muted">Généré le 24/04/2026 13:18:44</div>
+          </div>
+          <div class="muted" style="text-align:right;">
+            <div><strong>Score</strong> : 70/100</div>
+            <div>Mode: <code>rules</code></div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="grid">
+          <div>
+            <h2>Résumé exécutif</h2>
+            <ul><li>Numéro de téléphone difficile à trouver</li><li>Parcours de demande peu explicite</li></ul>
+          </div>
+
+          <div>
+            <h2>Données récupérées</h2>
+            <div class="muted">Ces informations sont extraites automatiquement et peuvent nécessiter validation.</div>
+            <div class="evidence" style="margin-top:10px;">
+              <div class="muted">Confiance</div>
+              <div><strong>40%</strong></div>
+              <div class="hr"></div>
+              <div class="muted">Nom</div>
+              <div>Example Domain</div>
+              <div class="hr"></div>
+              <div class="muted">Téléphone</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Email</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Site externe</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Zone (best-effort)</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Codes postaux (best-effort)</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Services (best-effort)</div>
+              <div>—</div>
+              <div class="hr"></div>
+              <div class="muted">Horaires (best-effort)</div>
+              <div class="pre">—</div>
+              <div class="hr"></div>
+              <div class="muted">CTA détectés (best-effort)</div>
+              <div>—</div>
+            </div>
+          </div>
+
+          <div>
+            <h2>Pourquoi notre solution est mieux adaptée</h2>
+            <div class="pre">Avant : un site vitrine difficile à faire évoluer, qui présente l’activité mais transforme mal les visites en demandes, et sans mesure claire de ce qui fonctionne.
+Après : un site pensé pour convertir (appel / devis), avec un suivi simple et des améliorations continues basées sur la donnée.
+
+Concrètement, ce qu’on met en place :
+- Un message clair dès l’arrivée (métier + zone + promesse) et un CTA visible immédiatement.
+- Un parcours “demande” mobile-first : appel / WhatsApp / devis en quelques secondes.
+- Des preuves au bon endroit : avis, garanties, éléments rassurants là où le client hésite.
+- Des pages adaptées aux intentions (services, zones, tarifs) pour répondre vite aux questions clés.
+- Un pilotage par les chiffres : suivi des clics et des demandes, et optimisation progressive.
+
+Ce que vous gagnez :
+- Plus de demandes, plus rapidement, avec moins de pertes.
+- Un site qui s’améliore au fil du temps au lieu de rester figé.</div>
+          </div>
+
+          <div>
+            <h2>Diagnostic</h2>
+            <div class="finding">
+                  <div class="finding-head">
+                    <div>
+                      <div class="muted">conversion</div>
+                      <h3>Numéro de téléphone difficile à trouver</h3>
+                    </div>
+                    <span class="sev sev-high">HIGH</span>
+                  </div>
+                  <ul><li>Afficher un numéro cliquable dès l’en-tête (mobile-first).</li><li>Répéter le CTA “Appeler” sur les pages clés.</li></ul>
+                  <div class="evidence">
+                          <div class="muted">Preuve</div>
+                          <div><a href="https://example.com/" target="_blank" rel="noreferrer">https://example.com/</a></div>
+                          <div class="muted">Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more</div>
+                        </div>
+                </div><div class="finding">
+                  <div class="finding-head">
+                    <div>
+                      <div class="muted">conversion</div>
+                      <h3>Parcours de demande peu explicite</h3>
+                    </div>
+                    <span class="sev sev-med">MEDIUM</span>
+                  </div>
+                  <ul><li>Mettre en avant une action principale (Appeler / Devis) dès la première section.</li><li>Réduire la friction (formulaire court, promesse claire).</li></ul>
+                  <div class="evidence">
+                          <div class="muted">Preuve</div>
+                          <div><a href="https://example.com/" target="_blank" rel="noreferrer">https://example.com/</a></div>
+                          <div class="muted">Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more</div>
+                        </div>
+                </div>
+          </div>
+
+          <div>
+            <h2>Plan de site recommandé</h2>
+            <div class="muted">Pages standard</div>
+            <div><span class="pill">home</span><span class="pill">services</span><span class="pill">zones</span><span class="pill">tarifs</span><span class="pill">contact</span></div>
+            <div class="hr"></div>
+            <div class="muted">Pages custom (si besoin)</div>
+            <div class="muted">Aucune page custom détectée.</div>
+          </div>
+
+          <div>
+            <h2>Périmètre</h2>
+            <ul><li><a href="https://example.com/" target="_blank" rel="noreferrer">https://example.com/</a></li></ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+version: 1
+locale: fr-FR
+goal: "Standardiser le tracking (appels, WhatsApp, formulaires) + attribution simple par source."
+principles:
+  - "Ne pas dépendre d’un outil externe spécifique : exposer des events génériques."
+  - "Limiter à quelques events stables pour rester maintenable."
+  - "Attribuer la source via UTM et/ou referrer, puis agréger côté dashboard."
+utm:
+  supported_keys:
+    - utm_source
+    - utm_medium
+    - utm_campaign
+    - utm_term
+    - utm_content
+  storage:
+    cookie_or_local_storage:
+      ttl_days: 30
+      keys_to_persist:
+        - utm_source
+        - utm_medium
+        - utm_campaign
+        - utm_content
+        - utm_term
+        - landing_path
+        - referrer
+    overwrite_rules:
+      - "Si de nouveaux UTM sont présents, écraser les anciens."
+      - "Sinon conserver les derniers UTM connus."
+attribution:
+  primary_source_rules:
+    - id: google_business_profile
+      when: "utm_source in ['google','gmb','gbp'] OR referrer contains 'google.'"
+      label: "Google"
+    - id: facebook
+      when: "utm_source in ['facebook','fb','meta'] OR referrer contains 'facebook.'"
+      label: "Facebook"
+    - id: instagram
+      when: "utm_source in ['instagram','ig'] OR referrer contains 'instagram.'"
+      label: "Instagram"
+    - id: direct
+      when: "referrer empty AND utm_source empty"
+      label: "Direct"
+    - id: other
+      when: "default"
+      label: "Autre"
+events:
+  common_properties:
+    - name: trade_id
+      type: string
+      required: true
+    - name: page_type
+      type: enum(home,services,zones,tarifs,other)
+      required: true
+    - name: page_path
+      type: string
+      required: true
+    - name: session_id
+      type: string
+      required: true
+    - name: utm_source
+      type: string
+      required: false
+    - name: utm_medium
+      type: string
+      required: false
+    - name: utm_campaign
+      type: string
+      required: false
+    - name: referrer
+      type: string
+      required: false
+  definitions:
+    - name: view_page
+      category: "engagement"
+      when: "page load"
+      properties:
+        - page_type
+        - page_path
+    - name: click_call
+      category: "lead_intent"
+      when: "user clicks tel: link or call CTA"
+      properties:
+        - name: cta_id
+          type: enum(header,hero,sticky,footer,inline)
+          required: true
+    - name: click_whatsapp
+      category: "lead_intent"
+      when: "user clicks WhatsApp link or CTA"
+      properties:
+        - name: cta_id
+          type: enum(header,hero,sticky,footer,inline)
+          required: true
+    - name: open_quote_form
+      category: "lead_intent"
+      when: "form opened (modal) or form section reached"
+      properties:
+        - name: trigger
+          type: enum(cta_click,scroll,deeplink)
+          required: true
+    - name: submit_quote_form
+      category: "lead"
+      when: "form successfully submitted"
+      properties:
+        - name: request_type
+          type: string
+          required: true
+        - name: urgency
+          type: enum(now,today,week)
+          required: true
+        - name: photos_count
+          type: number
+          required: true
+        - name: in_zone
+          type: boolean
+          required: true
+        - name: lead_id
+          type: string
+          required: true
+    - name: lead_status_changed
+      category: "crm"
+      when: "lead status updated in backoffice"
+      properties:
+        - name: lead_id
+          type: string
+          required: true
+        - name: status_from
+          type: enum(new,qualified,needs_followup,contacted,appointment,quote_sent,won,lost)
+          required: true
+        - name: status_to
+          type: enum(new,qualified,needs_followup,contacted,appointment,quote_sent,won,lost)
+          required: true
+    - name: lead_response_sent
+      category: "crm"
+      when: "sms/whatsapp sent from templates"
+      properties:
+        - name: lead_id
+          type: string
+          required: true
+        - name: channel
+          type: enum(sms,whatsapp)
+          required: true
+        - name: template_id
+          type: string
+          required: true
+privacy:
+  pii_rules:
+    - "Ne jamais envoyer de numéro de téléphone, email, adresse, prénom dans les events analytics."
+    - "Le lead_id peut être un identifiant opaque (UUID)."
+
