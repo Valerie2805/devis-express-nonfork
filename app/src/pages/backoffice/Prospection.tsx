@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import BackofficeShell from '@/components/backoffice/BackofficeShell'
 import BackButton from '@/components/BackButton'
 import { apiFetch, authHeaders } from '@/lib/api'
@@ -107,7 +107,6 @@ function diagnosticFromSearchError(msg: string | null): SearchDiagnostic | null 
 
 export default function Prospection() {
   const { businessId = '' } = useParams()
-  const navigate = useNavigate()
   const { token } = useAuthStore()
   const [me, setMe] = useState<{ role: 'owner' | 'staff' } | null>(null)
   const [staffPerms, setStaffPerms] = useState<Record<string, any>>({})
@@ -1289,13 +1288,14 @@ export default function Prospection() {
                     <div className="mt-1 text-xs text-zinc-300">
                       <span className="text-zinc-400">Score</span> {Number(p.score || 0)} · {p.city || '—'} ·{' '}
                       {p.website ? (
-                        <button
-                          type="button"
-                          onClick={() => navigate(`/backoffice/${businessId}/site-audits?url=${encodeURIComponent(String(p.website))}`)}
-                          className="underline decoration-white/30 underline-offset-2 hover:text-zinc-200"
-                        >
-                          {p.website}
-                        </button>
+                      <a
+  href={p.website.startsWith('http') ? p.website : `https://${p.website}`}
+  target="_blank"
+  rel="noreferrer noopener"
+  className="underline decoration-white/30 underline-offset-2 hover:text-zinc-200"
+>
+  {p.website}
+</a> 
                       ) : (
                         '—'
                       )}
