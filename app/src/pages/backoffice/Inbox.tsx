@@ -156,8 +156,17 @@ const [siteCreateError, setSiteCreateError] = useState<string | null>(null)
             <h1 className="text-lg font-semibold text-white">Demandes</h1>
             <div className="mt-1 text-xs text-zinc-300">Répondez vite : ça augmente le taux de gain.</div>
           </div>
+
         </div>
+       
         <div className="flex items-center gap-2">
+      <div className="mt-6 rounded-2xl border border-white/10 bg-zinc-950/40 p-4">
+  <div className="text-sm font-semibold text-white">Créer un site web</div>
+  <div className="mt-1 text-xs text-zinc-300">Copie les infos d’un site existant, puis choisis tes couleurs, ton logo et ton image de fond dans Réglages.</div>
+</div>
+</div>
+  </div>
+</div>
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
@@ -241,6 +250,7 @@ const [siteCreateError, setSiteCreateError] = useState<string | null>(null)
         </div>
       </div>
 
+      <div className="mt-6 rounded-2xl border border-white/10 bg-zinc-950/40 p-4"><div className="text-sm font-semibold text-white">Créer un site web</div><div className="mt-1 text-xs text-zinc-300">Copie les infos d’un site existant, puis choisis tes couleurs, ton logo et ton image de fond dans Réglages.</div></div>
       <div className="mt-5 overflow-hidden rounded-2xl border border-white/10">
         <div className="grid grid-cols-[1.2fr_.8fr_.7fr_.7fr_.4fr] gap-2 bg-white/5 px-4 py-3 text-[11px] uppercase tracking-wider text-zinc-400">
           <div>Demande</div>
