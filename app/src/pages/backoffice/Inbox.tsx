@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AlertTriangle, ArrowRight, Filter, MessageCircle, Phone } from 'lucide-react'
 import BackofficeShell from '@/components/backoffice/BackofficeShell'
 import BackButton from '@/components/BackButton'
@@ -42,7 +42,13 @@ function urgencyLabel(u: string) {
 export default function Inbox() {
   const { businessId = '' } = useParams()
   const { token } = useAuthStore()
+  const navigate = useNavigate()
   const [role, setRole] = useState<'owner' | 'staff' | null>(null)
+  const [staffPerms, setStaffPerms] = useState<Record<string, any>>({})
+const [siteSourceUrl, setSiteSourceUrl] = useState('')
+const [sitePrefillUrl, setSitePrefillUrl] = useState<string | null>(null)
+const [siteCreating, setSiteCreating] = useState(false)
+const [siteCreateError, setSiteCreateError] = useState<string | null>(null)
   const [canExport, setCanExport] = useState(false)
   const [q, setQ] = useState('')
   const [status, setStatus] = useState<string>('')
